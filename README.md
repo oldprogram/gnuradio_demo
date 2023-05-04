@@ -16,6 +16,7 @@
 - [[14]. GNU Radio 系列教程（十四）—— GNU Radio 低阶到高阶用法的分水岭 ZMQ 的使用详解][#14]
 - [[14]. SDR 教程实战 —— 利用 GNU Radio + HackRF 做 FM 收音机][#X1]
 - [[15]. SDR 教程实战 —— 利用 GNU Radio + HackRF 做蓝牙定频测试工具（超低成本）][#X2]
+- [[16]. SDR 教程实战 —— 利用 GNU Radio + HackRF + WireShark 做蓝牙抓包器（超低成本）][#X3]
 
 </br>
 
@@ -49,6 +50,7 @@
 [#14]:https://www.cnblogs.com/zjutlitao/p/17354483.html
 [#X1]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [#X2]:https://www.bilibili.com/video/BV1ft4y1L7Ve/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
+[#X3]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 
 [p1]:https://tuchuang.beautifulzzzz.com:3000/?path=/b7/c0e8dfd4bd35d1bb81c7a36391a9a4.png
 [p2]:https://tuchuang.beautifulzzzz.com:3000/?path=/6b/11cb813d94f67b31ac4b830261ed7b.png
