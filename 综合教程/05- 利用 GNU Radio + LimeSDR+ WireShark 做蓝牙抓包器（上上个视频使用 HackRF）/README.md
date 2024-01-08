@@ -1,0 +1,1 @@
+使用上上个教程的工程，修改 `ble_dump` 中的 `from grc.gr_ble import gr_ble as gr_block` 为： `from grc_limesdr.gr_ble import gr_ble as gr_block` 即可
