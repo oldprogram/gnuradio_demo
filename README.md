@@ -4,7 +4,7 @@
 git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 ```
 
-**note：**注意将 git 子模块拉取下来
+**note：** 注意将 git 子模块拉取下来
 
 </br>
 
