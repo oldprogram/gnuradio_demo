@@ -5,11 +5,11 @@
 
 ![][p6]
 
-** GFSK 是 FSK 的扩展，其中调制信号的频率不会在二进制数据的每个符号周期开始时立即改变。 ** 因此，bit 0-> 1 或反之变得更加平滑。换句话说，与传统的 FSK 相比，调制信号的幅度和相位变化将相对较小。原则上，FSK 是使用独立的本地振荡器分别用于同相和正交分量来实现的，并且振荡器将在每个符号周期开始时切换以生成用于调制的载波频率。一般而言，所有独立振荡器在符号周期开始时不会处于相同的幅度和相位，因此这会导致传输信号的每个比特变化的频率突然变化。因此，调制后的 FSK 信号将非常宽，并且具有不可忽略的旁瓣。下图说明了这一点。
+**GFSK 是 FSK 的扩展，其中调制信号的频率不会在二进制数据的每个符号周期开始时立即改变。** 因此，bit 0-> 1 或反之变得更加平滑。换句话说，与传统的 FSK 相比，调制信号的幅度和相位变化将相对较小。原则上，FSK 是使用独立的本地振荡器分别用于同相和正交分量来实现的，并且振荡器将在每个符号周期开始时切换以生成用于调制的载波频率。一般而言，所有独立振荡器在符号周期开始时不会处于相同的幅度和相位，因此这会导致传输信号的每个比特变化的频率突然变化。因此，调制后的 FSK 信号将非常宽，并且具有不可忽略的旁瓣。下图说明了这一点。
 
 ![图 1：给定数字信号的 FSK 调制信号][p3]
 
-信号被正确解码的前提是：在每个符号周期之后具有精确和准确的幅度和相位值。** 如果接收端收到这样的信号，将会造成信道失真、干扰、热再生等，从而降低 FSK 的性能。 **
+信号被正确解码的前提是：在每个符号周期之后具有精确和准确的幅度和相位值。**如果接收端收到这样的信号，将会造成信道失真、干扰、热再生等，从而降低 FSK 的性能。**
 
 在 GFSK 调制方案中，需要在基带波形信号前引入高斯滤波器。典型的高斯滤波器是脉冲响应为高斯函数的滤波器（如下图为高斯脉冲响应）
 
@@ -73,15 +73,15 @@ Log | `Print modualtion data to files? (bool)` |
 
 
 
-[[1].什么是 GFSK 调制？][#1]
-[[2].Frequency-shift keying][#2]
-[[3].GFSK vs FSK][#3]
-[[4].Digital GFSK Carrier Synchronization-IEEE][#4]
-[[5].Samples Per Symbol][#5]
-[[6].FIR Gaussian Pulse-Shaping Filter Design - Matlab][#6]
-[[7].数字和模拟滤波器 — 示例][#7]
-[[8].Frequency Mod][#8]
-[[9].GFSK Demod][#9]
+[[1].什么是 GFSK 调制？][#1]    
+[[2].Frequency-shift keying][#2]     
+[[3].GFSK vs FSK][#3]     
+[[4].Digital GFSK Carrier Synchronization-IEEE][#4]     
+[[5].Samples Per Symbol][#5]     
+[[6].FIR Gaussian Pulse-Shaping Filter Design - Matlab][#6]     
+[[7].数字和模拟滤波器 — 示例][#7]     
+[[8].Frequency Mod][#8]     
+[[9].GFSK Demod][#9]     
 
 [#1]:https://www.everythingrf.com/community/what-is-gfsk-modulation
 [#2]:https://en.wikipedia.org/wiki/Frequency-shift_keying
