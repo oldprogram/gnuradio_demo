@@ -40,6 +40,14 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 </br>
 
+
+#### 基础教程：
+
+- [[1]. GNU Radio 块介绍（一）－－ GNU Radio 的绝对值(Abs)块][JCK1]
+
+</br>
+
+
 ## 视频和博客
 
 [![][pbilibili]][#bilibili]
@@ -74,6 +82,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX3]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX4]:https://www.bilibili.com/video/BV18h4y1Y7mf/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX5]:https://www.bilibili.com/video/BV1Q84y1D7tZ/?spm_id_from=333.999.0.0
+[JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 
 [pbilibili]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/5aaaa5db7dfd1139793c6726f82cfc.png
 [#bilibili]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
