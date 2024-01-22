@@ -41,7 +41,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 </br>
 
 
-#### 基础教程：
+#### 基础块教程：
 
 - [[1]. GNU Radio 块介绍（一）－－ GNU Radio 的绝对值(Abs)块][JCK1]
 
