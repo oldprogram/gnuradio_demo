@@ -27,6 +27,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[13]. GNU Radio 系列教程（十三）—— 用两个 HackRF 实现 FM 收发][JC13]
 - [[14]. GNU Radio 系列教程（十四）—— GNU Radio 低阶到高阶用法的分水岭 ZMQ 的使用详解][JC14]	
 - [[15]. GNU Radio 系列教程（十五）—— GNU Radio GFSK 模块][JC15]
+- [[16]. GNU Radio 系列教程（十六）—— GNU Radio 的调试利器 Message Strobe][JC16]
 
 </br>
 
@@ -77,6 +78,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC13]:https://www.bilibili.com/video/BV1TM41177Bj/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JC14]:https://www.cnblogs.com/zjutlitao/p/17354483.html
 [JC15]:https://www.bilibili.com/video/BV1ji4y1q7f9/?vd_source=84f94348691c2906fc1038d54989b7e0
+[JC16]:https://www.bilibili.com/video/BV1Ye411h7bF/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX1]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX2]:https://www.bilibili.com/video/BV1ft4y1L7Ve/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX3]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
