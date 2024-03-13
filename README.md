@@ -28,6 +28,9 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[14]. GNU Radio 系列教程（十四）—— GNU Radio 低阶到高阶用法的分水岭 ZMQ 的使用详解][JC14]	
 - [[15]. GNU Radio 系列教程（十五）—— GNU Radio GFSK 模块][JC15]
 - [[16]. GNU Radio 系列教程（十六）—— GNU Radio 的调试利器 Message Strobe][JC16]
+- [[17]. GNU Radio 系列教程（十七）—— GNU Radio PDU TX 利用三个块实现最小的数据包（帧头+数据+校验）][JC17]
+- [[18]. GNU Radio 系列教程（十八）—— GNU Radio PDU TX 将帧头和 payload 消息合并为数据帧][JC18]
+- [[19]. GNU Radio 系列教程（十九）—— GNU Radio PDU TX 将最小数据帧实施脉冲突发整形填充 --> 让帧更稳定][JC19]
 
 </br>
 
@@ -79,6 +82,10 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC14]:https://www.cnblogs.com/zjutlitao/p/17354483.html
 [JC15]:https://www.bilibili.com/video/BV1ji4y1q7f9/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JC16]:https://www.bilibili.com/video/BV1Ye411h7bF/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
+[JC17]:https://www.bilibili.com/video/BV18Z421U7H8/?vd_source=84f94348691c2906fc1038d54989b7e0
+[JC18]:https://www.bilibili.com/video/BV1oi421Z7BZ/?vd_source=84f94348691c2906fc1038d54989b7e0
+[JC19]:https://www.bilibili.com/video/BV14x4y1D7mP/?vd_source=84f94348691c2906fc1038d54989b7e0
+
 [JCX1]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX2]:https://www.bilibili.com/video/BV1ft4y1L7Ve/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX3]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
