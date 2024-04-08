@@ -206,6 +206,209 @@ burst shaper block 的输出是一个经过整形和补偿的脉冲序列，它�
 
 </br>
 
+### 2.6 RRC 滤波与多相任意重采样
+
+#### 2.6.1 FIR 滤波器例子
+
+首先来看几个常见的滤波器的效果`filter_taps.grc`：
+
+![][p14]
+
+效果如下：
+
+![][p15]
+
+其中：
+
+1）低通滤波器：截止频率为 14K，带宽为 1K，看图就能直接 get 到    
+2）高通滤波器：截止频率为 2K，带宽为 1K，看图也能 get    
+3）带通滤波器：设置 6K 到 10K，也是能看图 get     
+4）带阻滤波器：设置 6K 到 10K，也是能看图 get     
+5）RRC 根（平方根）升余弦滤波器需要单独介绍下        
+
+</br>
+
+#### 2.6.2 滤波器基础及 RRC 知识
+
+**要想理解 RRC 需要补充几个基础知识点**：
+
+##### 1）什么时候用 RRC？
+
+数字通信系统中，基带信号进入调制器前，波形是矩形脉冲，突变的上升沿和下降沿包含高频成分丰富，信号的频谱一般比较宽，通过带限信道时，单个符号的脉冲将延伸到相邻符号的码元内，产生码间串扰。因此在信道带宽有限的情况下，要降低误码率，需在信号传递前，通过发送滤波器（脉冲成型滤波器）对其进行脉冲成型处理，改善其频谱特性，产生合适信道传输的波形。数字系统中常用的波形成形滤波器有升余玄脉冲滤波器、平方根升余玄滤波器、高斯滤波器等 [<sup>[32]<sup>][#32]。
+
+</br>
+
+##### 2）什么是 RRC？
+
+**升余弦滤波器：** 升余弦滤波器（Raised-cosine filter）是一种经常作脉冲成型滤波器，它能够最大限度地减少码间干扰（ISI）。之所以会如此命名是因为，该滤波器的最简形式频谱 ($\beta = 1$) 的非零部分为余弦函数且被抬升至水平轴的上方 [<sup>[33]<sup>][#33] [<sup>[34]<sup>][#34]。
+
+**数学描述为：**
+
+升余弦滤波器是低通奈奎斯特滤波器的一种实现，即具有对称性的滤波器。这意味着它的频谱在 `f=± 1/(2T)`  表现出奇对称性(Ts 是符号速率)，如下：
+
+![][p17]
+
+**引出根升余玄滤波：**
+
+当用于过滤符元流时，奈奎斯特滤波器具有消除 ISI 的特性，因为除了 $n = 0$ 的情形之外，所有 $nT$（n 是整数）的脉冲响应都是零。
+
+因此，如果传输的波形在接收端被正确采样，原本的符元值就可以完全恢复。
+
+然而，在许多实际的通讯系统，由于受白噪声之影响，会在接收器中使用匹配滤波器。对于零 ISI，发射和接收滤波器的净响应必须等于 $H(f)$：
+
+```math
+{\displaystyle H_{R}(f)\cdot H_{T}(f)=H(f)}
+```
+
+因此：
+
+```math
+{\displaystyle |H_{R}(f)|=|H_{T}(f)|={\sqrt {|H(f)|}}}
+```
+
+这些滤波器称为根升余弦滤波器 [<sup>[33]<sup>][#33] [<sup>[34]<sup>][#34]。
+
+**集中重要参数：**
+
+
+**滚降系数**：滚降系数 $\beta$ 是对滤波器带宽过量（excess bandwidth）的度量，即所占带宽超过奈奎斯特带宽 $\frac {1}{2T}$ 的部分，有些作者会使用 ${\displaystyle \alpha }$ 表示.
+
+若我们将多余的带宽表示为 ${\displaystyle \Delta f}$，则：
+
+```math
+{\displaystyle \beta ={\frac {\Delta f}{\left({\frac {1}{2T}}\right)}}={\frac {\Delta f}{R_{S}/2}}=2T\,\Delta f}
+```
+
+${\displaystyle R_{S}={\frac {1}{T}}}$ 是符元率。
+
+上面的图显示为 ${\displaystyle \beta }$ 在 0 和 1 之间变化的振幅响应，以及对脉冲响应的相应作用。可以看出，时域的涟波准位会随着 ${\displaystyle \beta }$ 减少而增加，这可以减少滤波器的频寛过量，但只能以伸长脉冲响应为代价。
+
+</br>
+
+**宽带**：升余弦滤波器的带宽通常定义为其频谱的非零正频率部分的宽度，即：
+
+```math
+{\displaystyle BW={\frac {R_{S}}{2}}(\beta +1),\quad (0<\beta <1)}
+```
+
+</br>
+
+##### 3）高斯滤波和升余玄滤波的区别
+
+问：为什么GMSK要加高斯滤波器，而QPSK加升余弦滤波器？这么加这两种滤波器的主要区别是什么？有什么好处 [<sup>[30]<sup>][#30]？
+
+答：GMSK 加高斯滤波器主要是为了减少带外辐射，让信号带宽更窄，从而增加信道容量，加入高斯后，反而会增加 ISI。而 QPSK 加升余弦滤波器主要是为了减少 ISI，对信号带宽有一定的减小，但减小程度没有高斯厉害。
+
+
+</br>
+
+##### 4）滤波基础知识
+
+为了更好地理解 RRC，我们需要再补充些滤波器的基础知识：
+
+
+**数字滤波器的作用通常可以概括为两方面**：
+
+- **信号恢复(signal restoration)**： 信号恢复指滤波器能对失真信号进行恢复
+- **信号分离(signal separation)**：信号分离 则指滤波器可以从冲突、干扰、或噪声中分离目标信号
+
+</br>
+
+**数字滤波的两方面作用恰好对应了信号携带信息的两种不同模式**：
+
+- **时域调制**： 时域调制 指使用信号的振幅、相位等波形特征表示要携带的信息内容，在这种情况下时域的采样结果可直接用于信息内容的提取；
+- **频域调制**：频域调制是利用周期信号的频率特征区别和表示不同的信息；
+
+</br>
+
+**滤波器分类**：
+
+![][p20]
+
+</br>
+
+**时域参数**：
+
+通常使用 **阶跃响应（Step Response）** 描述滤波器的时域特征 [<sup>[40]<sup>][#40] 。阶跃响应指输入信号为单位准阶跃信号时，滤波器的响应输出（阶跃信号的形式如下图所示）。由于阶跃信号本质上是单位脉冲信号在时间上的积分，所以对于线性系统而言，阶跃响应就是单位脉冲响应在时间上的积分。
+
+给定一个滤波器阶跃响应，阶跃响应的哪些参数可以用于描述该滤波器的性能？
+
+- 过渡速度（transition speed）：规定阶跃响应中输出振幅从10％变化到90％振幅所经历的样本数为过渡速度。
+- 过冲幅度（overshoot）：过冲指信号通过滤波器后其时域振幅发生波动的现象，这是时域中包含的信息的基本失真。
+- 线性相位（linear phase）：希望阶跃响应的上半部分与下半部分对称。这种对称是为了使上升边与下降边看起来相同。这种对称性被称为线性相位，因为当阶跃响应上下对称时，频率响应的相位是一条直线。
+
+**注**：本节基本上复制于《物联网前沿实践》，详细细请参考 [[40]][#40]。
+
+</br>
+
+**频域参数**：
+
+从频域上看，滤波器的作用是允许某些频率的信号无失真地通过，而完全阻塞另一些频率的信号。有：低通、高通、带通、带阻。
+
+上述四种滤波器的共同特征是能够在频域分离不同频率的信号分量，在设计和选择滤波器时，我们需要考虑以下三个重要参数：
+
+- 滚降速度：为了分离间隔很近的频率，滤波器必须具有快速滚降
+- 通带波纹：为了使通带频率不改变地通过滤波器，必须尽可能抑制通带纹波
+- 阻带衰减：为了充分阻挡阻带频率，必须具有良好的阻带衰减
+
+![][p18]
+
+**注**：本节基本上复制于《物联网前沿实践》，详细细请参考 [[40]][#40]。
+
+</br>
+
+#### 2.6.3 回来理解 RRC
+
+![][p22]
+
+RRC Filter Taps 有以下参数[<sup>[41]<sup>][#41]：
+
+- **Gain**: Overall gain of filter (default 1.0)
+- **Sample Rate**: Sample rate in samples per second.
+- **Symbol Rate**: Symbol rate, must be a factor of sample rate. Typically ((samples/second) / (samples/symbol)).
+- **Excess BW**: Excess bandwidth factor, also known as alpha. (default: 0.35)
+- **Num Taps**: Number of taps (default: 11*samp_rate). Note that the number of generated filter coefficients will be num_taps + 1.
+
+</br>
+
+由于 2.2 介绍升余弦滤波器的带宽通常定义为其频谱的非零正频率部分的宽度，即：
+
+```math
+{\displaystyle BW={\frac {R_{S}}{2}}(\beta +1),\quad (0<\beta <1)}
+```
+
+因此流程图中的 RRC 滤波器相当于低通滤波器，滤波的带宽为 16K/2(1+0.35) = 10.8 
+</br>
+
+#### 2.6.4 理解重采样
+
+对于数字调制：
+
+![][p21]
+
+</br>
+
+采样率变换，是软件无线电中的一个重要概念。一般来说，接收端射频器件以较高的采样率进行采样，可以使被采样带宽增加，而且有利于降低量化噪声，但高采样率会使采样后的数据速率很高，例如，接收卫星信号的采样率可达500MSPS，每秒采500M个样点，数据规模庞大，容易导致后续信号处理的负担加重，因此，非常有必要在ADC后进行降速处理，自然也就涉及到采样率的变换问题。
+
+**采样率的变换，通常分为内插（也称上采样）和抽取（也称下采样）。内插是指提高采样率以增加数据样点的过程；抽取是指降低采样率以去除多余数据样点的过程。**
+
+![][p13]
+
+这里直接上结论，插值后信号的频谱为原始信号频谱经过I倍“压缩”得到，抽取后的信号频谱以原始信号频谱的D倍进行“展宽”。
+
+—— [复制自知乎-楚友马-gnuradio 入门开发][#26]
+
+</br>
+
+GNU Radio 提供以下几种重采样块：Fractional Resampler、Rational Resampler Base、Rational Resampler、Polyphase Arbitrary Resampler。我们这个例子中使用了 Polyphase Arbitrary Resampler，因此只对其进行简单介绍（其他的后面出一期专门介绍）：
+
+多相任意重采样器是一种用于对信号流进行任意比例的重采样的技术，它可以根据不同的需求，调节信号的采样率和波形。它的原理是，将一个长的滤波器分解为多个短的滤波器，形成一个多相滤波器组，然后对输入信号进行多相分解，使得每个分支的信号只需要经过一个短的滤波器，从而降低运算量和延迟。接着，根据目标的重采样比例，从多相滤波器组中循环地取出一定数量的输出信号，并在相邻的输出信号之间进行插值，得到一个近似的重采样结果 [<sup>[26]<sup>][#26] [<sup>[28]<sup>][#28]。
+
+多相任意重采样器的优点是，它可以实现任意的重采样比例，无论是有理数还是无理数，而不需要进行复杂的内插或抽取操作。它也可以有效地减少滤波器的长度和运算量，提高重采样的效率和精度。它的缺点是，它需要对滤波器和信号进行多相分解，这会增加一些存储和计算的开销。它也会引入一些量化误差，因为它是通过插值来实现任意比例的重采样，而不是精确的重采样。因此，它需要根据具体的应用场景和性能要求，来选择合适的滤波器个数和插值方法 [<sup>[27]<sup>][#27] [<sup>[29]<sup>][#29]。
+
+
+</br>
+
 # 参考链接
 
 [[1].维基百科 —— PDU][#1]    
@@ -233,7 +436,31 @@ burst shaper block 的输出是一个经过整形和补偿的脉冲序列，它�
 [[23].CSDN —— 一文读懂FFT，海宁窗（hann）和汉明窗（hamming）的区别，如何选择窗函数][#23]  
 [[24].维基百科 —— 窗函数 Window function][#24]    
 [[25].GNU Radio —— Burst Shaper][#25]    
-
+[[26].知乎 —— 楚友马-gnuradio 入门开发][#26]    
+[[27].北理工学报 —— 基于抽取滤波器多相分解的多速率采样模块设计][#27]    
+[[28].CSDN —— 多相抽取器实现及matlab示例][#28]    
+[[29].Matlab —— 对非均匀采样信号进行重采样][#29]     
+[[30].通信技术互动问答 —— 为什么GMSK要加高斯滤波器，而QPSK加升余弦滤波器？][#30]     
+[[31].CSDN —— 滤波器之升余弦（很简单形象介绍了清楚）][#31]    
+[[32].清华大学出版社 —— MATLAB/System View 通信原理实验与系统仿真，3.3.1 升余弦滤波器][#32]     
+[[33].CSDN —— 升余弦和根升余弦滤波器(SRRC,RRC)的单位脉冲响应(详细)][#33]     
+[[34].维基百科 —— 升余弦滤波器][#34]    
+[[35].维基百科 —— 冲激响应][#35]     
+[[36].维基百科 —— 滤波器][#36]     
+[[37].维基百科 —— 低通滤波器][#37]     
+[[38].IC 先生 —— 升余玄滤波器工作原理_滚降系数_冲激响应表达式][#38]    
+[[39].知乎 —— 信号发送端用根升余弦滤波器进行成形滤波，那么接收端用什么滤波器来匹配呢？][#39]    
+[[40].清华大学 —— 《物联网前沿实践》第 5 章信号滤波（超好）][#40]    
+[[41].GNU Radio —— Root Raised Cosine Filter][#41]     
+[[42].NASA —— Root Raised Cosine (RRC) Filters and Pulse Shaping in Communication Systems][#42]     
+[[43].Matlab —— raised-cosine-filtering][#43]     
+[[44].文献 —— The care and feeding of digital,pulse-shaping filters][#44]      
+[[45].华强电子 —— 什么是FIR滤波器？FIR滤波器工作原理、组成、优缺点及应用详解][#45]      
+[[46].Stack Exchange —— RRC 滤波器的正确增益是多少？][#46]      
+[[47]. NI —— RFmx 波形创建器用户手册][#47]     
+[[48]. 博客 —— C 中的根升余弦滤波器][#48]      
+[[49]. 欧洲航天局 —— 平方根升余弦信号][#49]     
+[[50]. BOOK —— Intuitive guide to topics in communications and digital signal processing（很直观看信号与系统）][#50]      
 
 
 [#1]:https://en.wikipedia.org/wiki/Protocol_data_unit
@@ -261,6 +488,31 @@ burst shaper block 的输出是一个经过整形和补偿的脉冲序列，它�
 [#23]:https://blog.csdn.net/s09094031/article/details/105744859
 [#24]:https://en.wikipedia.org/wiki/Window_function
 [#25]:https://wiki.gnuradio.org/index.php?title=Burst_Shaper
+[#26]:https://zhuanlan.zhihu.com/p/356887817
+[#27]:https://journal.bit.edu.cn/zr/article/id/20140216
+[#28]:https://blog.csdn.net/chenxy_bwave/article/details/119104049
+[#29]:https://ww2.mathworks.cn/help/signal/ug/resampling-nonuniformly-sampled-signals.html
+[#30]:https://www.mscbsc.com/askpro/question26094
+[#31]:https://blog.csdn.net/mike190267481/article/details/7264827
+[#32]:http://www.tup.tsinghua.edu.cn/upload/books/yz/056155-02.pdf
+[#33]:https://blog.csdn.net/Null_0_lluN/article/details/123414267
+[#34]:https://zh.wikipedia.org/zh-cn/%E5%8D%87%E9%A4%98%E5%BC%A6%E6%BF%BE%E6%B3%A2%E5%99%A8
+[#35]:https://zh.wikipedia.org/wiki/%E5%86%B2%E6%BF%80%E5%93%8D%E5%BA%94
+[#36]:https://zh.wikipedia.org/wiki/%E6%BF%BE%E6%B3%A2%E5%99%A8
+[#37]:https://zh.wikipedia.org/wiki/%E4%BD%8E%E9%80%9A%E6%BB%A4%E6%B3%A2%E5%99%A8
+[#38]:https://www.mrchip.cn/newsDetail/2792
+[#39]:https://www.zhihu.com/question/53595335/answer/2704775972
+[#40]:https://iot-book.github.io/5_%E4%BF%A1%E5%8F%B7%E6%BB%A4%E6%B3%A2/S1_%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%AE%80%E4%BB%8B/
+[#41]:https://wiki.gnuradio.org/index.php/Root_Raised_Cosine_Filter
+[#42]:https://ntrs.nasa.gov/api/citations/20120008631/downloads/20120008631.pdf
+[#43]:https://ww2.mathworks.cn/help/comm/ug/raised-cosine-filtering.html
+[#44]:http://www.fccdecastro.com.br/pdf/ShapingFilterDesign.pdf
+[#45]:https://tech.hqew.com/news_2079179
+[#46]:https://dsp.stackexchange.com/questions/73341/what-is-the-correct-gain-of-an-rrc-filter
+[#47]:https://www.ni.com/docs/zh-CN/bundle/rfmx-waveform-creator/page/auto-cyclic-data.html
+[#48]:https://lloydrochester.com/psk31/rrc/
+[#49]:https://gssc.esa.int/navipedia/index.php/Square-Root_Raised_Cosine_Signals_%28SRRC%29
+[#50]:https://complextoreal.com/wp-content/uploads/2013/01/isi.pdf
 
 
 [p1]:https://tuchuang.beautifulzzzz.com:3000/?path=/72/a3dca86f10f741749115a53bc56214.png
@@ -274,7 +526,16 @@ burst shaper block 的输出是一个经过整形和补偿的脉冲序列，它�
 [p10]:https://tuchuang.beautifulzzzz.com:3000/?path=/b0/536a1f073ce04d5984470b85a9b028.png
 [p11]:https://tuchuang.beautifulzzzz.com:3000/?path=/de/4ed9776f6d1880f5782024be3425ce.png
 [p12]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/a0fb7ee0c8e151dac83d6d0ca29c50.png
-
+[p13]:https://tuchuang.beautifulzzzz.com:3000/?path=/e9/9fc7e4f8a84463d6257d06beeba29b.png
+[p14]:https://tuchuang.beautifulzzzz.com:3000/?path=/a7/93737ec55f4209985d12353fdea3f7.png
+[p15]:https://tuchuang.beautifulzzzz.com:3000/?path=/d9/b64d2070f74d597c5b336e11b0d486.gif
+[p16]:https://tuchuang.beautifulzzzz.com:3000/?path=/03/7d0ba68db3af8db9f5f659fead57f7.png
+[p17]:https://tuchuang.beautifulzzzz.com:3000/?path=/42/3e45709e57748279fcda01af91de8b.png
+[p18]:https://tuchuang.beautifulzzzz.com:3000/?path=/02/a674704d93e34d822c551010313959.png
+[p19]:https://tuchuang.beautifulzzzz.com:3000/?path=/e9/c75ba057edb1326970e7b370b4939a.png
+[p20]:https://tuchuang.beautifulzzzz.com:3000/?path=/64/8732ea9f1d59272e26ec24afac7b71.png
+[p21]:https://tuchuang.beautifulzzzz.com:3000/?path=/6f/d5cb45507f43533e02e75a6120aba9.png
+[p22]:https://tuchuang.beautifulzzzz.com:3000/?path=/83/e0dd6b594c4d0a678b6c43d263f365.png
 
 
 
