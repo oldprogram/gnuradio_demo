@@ -1,0 +1,381 @@
+options:
+  parameters:
+    author: J. Gilbert
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: 2021 J. Gilbert
+    description: Example usage of a range of PDU tools.
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: pdu_tools_demo
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: PDU Tools Example
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 20.0]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: interval
+  id: variable
+  parameters:
+    comment: ''
+    value: '0.400'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 20.0]
+    rotation: 0
+    state: true
+- name: timekey
+  id: variable
+  parameters:
+    comment: ''
+    value: pmt.intern("SYS_TIME")
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [216, 324.0]
+    rotation: 0
+    state: true
+- name: val
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: KEY1 Metadata Value
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '0.1'
+    stop: '500.0'
+    value: '123.4'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 20.0]
+    rotation: 0
+    state: true
+- name: add_sys_time
+  id: pdu_add_system_time
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u6B64\u5757\u5C06\u628A\u7CFB\u7EDF\u65F6\u95F4\u4F5C\u4E3A\u53CC\u7CBE\
+      \u5EA6\u6D6E\u70B9\u503C\u6DFB\n\u52A0\u5230 PDU \u5143\u6570\u636E\u4E2D\u3002\
+      \u65F6\u95F4\u952E\u53EF\u4EE5\u7531\u7528\n\u6237\u8BBE\u7F6E\u3002"
+    key: timekey
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [216, 396.0]
+    rotation: 0
+    state: true
+- name: msg_dbg
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: Print out the metadata dictionary.
+    en_uvec: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [576, 536.0]
+    rotation: 0
+    state: enabled
+- name: msg_dbg_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: Print out the metadata dictionary.
+    en_uvec: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 480.0]
+    rotation: 0
+    state: disabled
+- name: msg_strobe
+  id: blocks_message_strobe
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u53D1\u5C04 Emits pmt.PMT_T"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    msg: pmt.PMT_T
+    period: int(interval*1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [64, 188.0]
+    rotation: 0
+    state: true
+- name: note
+  id: note
+  parameters:
+    alias: ''
+    comment: "\u901A\u5E38\uFF0C\u4E00\u4E9BPDU\u5904\u7406\u5C06\u5728\u8FD9\u91CC\
+      \u8FDB\u884C\uFF0C\n\u4EE5\u4FBF\u5E94\u7528\u65F6\u95F4\u57FA\u51C6\u3002"
+    note: README
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 396.0]
+    rotation: 0
+    state: true
+- name: note_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: "\u6B64\u6D41\u7A0B\u56FE\u7A81\u51FA\u663E\u793A\u4E86\u8BB8\u591A\u6709\
+      \u7528\u7684PDU\u5DE5\u5177\u3002\n\u6B64\u6D41\u7A0B\u56FE\u9664\u4E86\u7528\
+      \u4F5C\u53C2\u8003/\u6F14\u793A\u4E4B\u5916\uFF0C\n\u4E0D\u6253\u7B97\u505A\u4EFB\
+      \u4F55\u7279\u522B\u6709\u7528\u7684\u4E8B\u60C5\u3002\n\nhttps://wiki.gnuradio.org/index.php/PDU_Set"
+    note: SUMMARY
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [456, 20.0]
+    rotation: 0
+    state: true
+- name: pdu_set
+  id: pdu_pdu_set
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u6B64\u5757\u5C06\u5411 PDU \u5143\u6570\u636E\u5B57\u5178\u6DFB\u52A0\
+      \u4E00\u4E2A key-value \u6570\u636E\u5BF9\u3002"
+    k: pmt.intern("KEY1")
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    v: pmt.from_double(val)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 188.0]
+    rotation: 0
+    state: true
+- name: pdu_split
+  id: pdu_pdu_split
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "PDU \u5C06\u4F1A\u88AB\u62C6\u5206\u6210\u6570\u636E\u5B57\u5178 metadata\
+      \ dictionary \u548C \u7EDF\u4E00\u5411\u91CF uniform vector\n, \u7136\u540E\u5206\
+      \u522B\u4F5C\u4E3A dict/uvec PMT \u6D88\u606F\u53D1\u51FA\u3002"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    pass_empty: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 616.0]
+    rotation: 0
+    state: true
+- name: random_pdu
+  id: pdu_random_pdu
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u8BE5\u5757\u6BCF\u6B21\u63A5\u6536\u8F93\u5165\u6D88\u606F\u65F6\u90FD\
+      \u4F1A\u53D1\u51FA\u4E00\u4E2A\u5E26\u6709\u7A7A\u5B57\u5178\u7684\u968F\u673A\
+      PDU\u3002\n\u8F93\u5165\u6D88\u606F\u7684\u7EC4\u6210\u65E0\u5173\u7D27\u8981\
+      \uFF08\u7A7A\u6D88\u606F\u4E5F\u80FD\u89E6\u53D1\uFF09\u3002"
+    length_modulo: '256'
+    mask: '0xFF'
+    maxoutbuf: '0'
+    maxsize: '4096'
+    minoutbuf: '0'
+    minsize: '2048'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [344, 172.0]
+    rotation: 0
+    state: true
+- name: time_delta
+  id: pdu_time_delta
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u6B64\u5757\u8BA1\u7B97\u4ECE\u6DFB\u52A0\u65F6\u95F4\u952E\u5230\u73B0\
+      \u5728\u6240\u7ECF\u8FC7\u7684\u6BEB\u79D2\u6570\uFF0C\n\u5E76\u5F53\u6D41\u7A0B\
+      \u56FE\u505C\u6B62\u65F6\u6253\u5370\u7EDF\u8BA1\u4FE1\u606F\u3002"
+    delta_key: pmt.intern("time_delta_ms")
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    time_key: timekey
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 388.0]
+    rotation: 0
+    state: true
+- name: time_raster
+  id: qtgui_time_raster_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: Colors for fun.
+    grid: 'False'
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    mult: '[]'
+    name: '"This Plot Is Not Meaningful"'
+    ncols: '128'
+    nconnections: '1'
+    nrows: '256'
+    offset: '[]'
+    samp_rate: '1'
+    type: msg_byte
+    update_time: '0.10'
+    x_end_value: '0.0'
+    x_label: '""'
+    x_start_value: '0.0'
+    y_end_value: '0.0'
+    y_label: '""'
+    y_start_value: '0.0'
+    zmax: '127'
+    zmin: '-128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 628.0]
+    rotation: 0
+    state: true
+- name: vs0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: x
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 196.0]
+    rotation: 0
+    state: true
+- name: vs1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: x
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 396.0]
+    rotation: 0
+    state: true
+- name: vs2
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: y
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1032, 396.0]
+    rotation: 0
+    state: true
+- name: vs3
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: y
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 628.0]
+    rotation: 0
+    state: true
+
+connections:
+- [add_sys_time, pdu, time_delta, pdu]
+- [msg_strobe, strobe, random_pdu, generate]
+- [pdu_set, pdus, vs0, '0']
+- [pdu_split, dict, msg_dbg, print]
+- [pdu_split, vec, time_raster, in]
+- [random_pdu, pdus, pdu_set, pdus]
+- [time_delta, pdu, msg_dbg_0, print]
+- [time_delta, pdu, vs2, '0']
+- [vs1, '0', add_sys_time, pdu]
+- [vs3, '0', pdu_split, pdu]
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.8.0

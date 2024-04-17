@@ -409,6 +409,166 @@ GNU Radio 提供以下几种重采样块：Fractional Resampler、Rational Resam
 
 </br>
 
+</br>
+
+## 3 发送相关的小 DEMO
+### 3.1 前向纠错编码
+
+编码需要用到 `FEC Async Encoder` 块[<sup>[5]<sup>][#5]：
+
+将在 message port 上接收到的帧（作为 async messages 或 PDU）进行编码。该 encoder 将完整消息作为一个帧或块进行编码。消息的长度会被用于帧的长度，特别的该块的 **MTU** 参数用于设置最大传输单元的大小，这意味传输帧长度不能大于这个值。
+
+此部署处理的消息是 messages full of unpacked bits 或 PDU messages，这意味着协议的更高层需要完成帧头、帧尾、CRC 校验等组装。为了处理 PDU，需要将 **packed** 选项设置为 True，然后该块将使用 FEC API 来正确地对 PDU 中的 bits 进行解包，再通过 encoder，并将它们重新打包输出新的 PDU 用于下一阶段。
+
+该块还提供对解包和打包顺序设置：LSB 和 MSB。默认 **rev_unpack** 和 **rev_pack** 设置为 True，也就是说拆包 bits 反转、打包 bits 反转。
+
+
+![][p6]
+
+因此，流程图（`tx_stage2.grc`）中的 Encoder 模块的 MTU 设置为 1.5K，packed 设置为 True，FEC 打包对象可选三个：
+
+EFC 对象块 | 参数 | 功能介绍
+---|---|---
+Repetition Encoder Definition[<sup>[6]<sup>][#6] | - 维度:?</br>- Frame Bits：帧最大 bits</br>- 重复:每 1 bit 重复多少次</br> | 按 bits 重复多少个
+Dummy Encoder Definitio | - 维度:?</br>- Frame Bits | 透传
+CC Encoder Definition[<sup>[7]<sup>][#7] | - 维度:?</br>- Frame Bits</br>- Constraint Length (K)：[2, 31]</br>- Rate Inverse(1/R)</br>- Polynomials（多项式）</br>- Start State：移位寄存器初始值 `[0, 2^(K-1)-1]`，大多数文献和书籍都使用从左向右移位的移位寄存器，而这里是从右向左，这意味着该值必须反转。</br>- Streaming behavior：指定卷积编码器的行为方式</br>- Byte Padding（字节填充）：编码的帧是否应该填充到最近的字节| 对恒定长的帧实施卷积编码，允许指定约束长度（K）、编码率、多项式。编码对象维护一个移位寄存器，该移位寄存器从输入流中取每个 bit，然后与与移位寄存器做 AND 运算，</br></br>Voyager 多项式常见二进制表示为 1011011和1111001，八进制为 133 和 171。对于这个块二进制需要颠倒：1101101和1001111；八进制这是155和117；十进制是109和79。一些标准（例如CCSDS 131.0-B-3）要求对某些输出进行反转。这是通过提供多项式的负值来支持的，例如-109。</br></br>NASA 的 Voyager code 使用 K=7, Rate=1/2：</br>1 + x^2 + x^3 + x^5 + x^6</br>1 + x   + x^2 + x^3 + x^6 </br></br>卷积编码行为有：</br>- Streaming：这种模式期望不间断的样本流进入编码器，并且输出流被连续编码。</br>- Terminated：为基于分组的系统设计的模式。此模式刷入 K-1 bits 进入编码器，将 rate*(K-1) bits 添加到输出，这提高了对块的最后比特的保护，并有助于解码器。</br>- Tailbiting（咬尾）：另一种基于分组的方法。此模式将用数据包的最后（k-1）位预初始化编码器的状态，而不是在数据包的末尾添加位（如“CC_TERMINATED”）。</br>- Truncated（截断的）：总是在帧之间将寄存器重置为起始状态。
+CCSDS Encoder Definition[<sup>[13]<sup>][#13] | 参数和 CC Encoder Definition 类似 | 是一种特殊的卷积码：CCSDS Encoding class for convolutional encoding with rate 1/2, K=7, and polynomials [109, 79].
+
+</br>
+
+采用 3 重复编码输出 log :
+
+```
+***** VERBOSE PDU DEBUG PRINT ******
+()
+pdu length =         48 bytes
+pdu vector contents = 
+0000: 22 e7 d5 20 f8 e9 38 a1 4e 18 8c 47 30 8c fe f5 
+0010: ff f7 f7 28 b9 f8 fb f5 1c 7c cc cc 4c 24 01 6b 
+0020: 1c ea a3 ca e0 f5 80 a7 cc 09 5c d9 db 73 02 76 
+************************************
+***** VERBOSE PDU DEBUG PRINT ******
+()
+pdu length =        144 bytes
+pdu vector contents = 
+0000: 03 80 38 ff 81 ff fc 71 c7 03 80 00 ff fe 00 ff 
+0010: 8e 07 03 fe 00 e3 80 07 1c 0f f8 00 7e 00 e0 0f 
+0020: c0 1c 01 ff 03 f0 00 e0 0f c0 ff ff f8 ff f1 c7 
+0030: ff ff ff ff f1 ff ff f1 ff 03 8e 00 e3 fe 07 ff 
+0040: fe 00 ff fe 3f ff f1 c7 00 7f c0 1f ff c0 fc 0f 
+0050: c0 fc 0f c0 1c 0f c0 03 81 c0 00 00 07 1f 8e 3f 
+0060: 00 7f c0 ff 8e 38 e3 80 3f fc 0e 38 ff 80 00 ff 
+0070: f1 c7 e0 00 00 e3 81 ff fc 0f c0 00 0e 07 1c 7f 
+0080: c0 fc 7e 07 fc 7e 3f 1f f0 3f 00 00 38 1f f1 f8 
+************************************
+```
+
+运算过程：
+
+```
+22 e7 -> 0010 0010 1110 0111 -> [000 000 111 000] [000 000 111 000] [111 111 111 000] [000 111 111 111] 
+							 -> 0000 0011 1000     0000 0011 1000    1111 1111 1000   0001 1111 1111
+							 -> 0    3    8        0    3    8       f    f    8      1    f    f
+							 -> 03        80            38           ff        81          ff  
+```
+
+</br>
+
+采用 CC Encoder 编码：K=7, Rate=1/2（rate = 1/Rate = 2），多项式使用 [109,79]
+
+```
+***** VERBOSE PDU DEBUG PRINT ******
+()
+pdu length =         48 bytes
+pdu vector contents = 
+0000: 22 e7 d5 20 f8 e9 38 a1 4e 18 8c 47 30 8c fe f5 
+0010: ff f7 f7 28 b9 f8 fb f5 1c 7c cc cc 4c 24 01 6b 
+0020: 1c ea a3 ca e0 f5 80 a7 cc 09 5c d9 db 73 02 76 
+************************************
+***** VERBOSE PDU DEBUG PRINT ******
+()
+pdu length =         97 bytes
+pdu vector contents = 
+0000: 0d ff d7 ec 6e df 0a 42 26 b6 b9 c9 9e e1 8e dd 
+0010: 8b 9e 16 63 43 c4 d0 f2 4b fe af c4 01 8c 83 9d 
+0020: 21 3f ff 20 d3 20 38 5d 3d 7e c6 06 ba b8 34 2d 
+0030: c4 24 6e ad 7f 0f 0f 0f d0 23 ea c5 0b 03 46 58 
+0040: 61 e4 b2 c7 cc 10 a6 45 3b d5 26 5d 18 9c d2 e7 
+0050: 6d 7f e7 dc 64 ef bc 47 0b fa 2b 3b fe 7d cb bf 
+0060: 49 
+************************************
+```
+
+运算过程[<sup>[8]<sup>][#8][<sup>[9]<sup>][#9][<sup>[10]<sup>][#10][<sup>[11]<sup>][#11][<sup>[12]<sup>][#12]：
+
+```
+22 e7 d5 20 -> 0010 0010 1110 0111 1101 0101 0010 0000 -> [001000] [101110] [011111] [010101] [001000] 00
+							
+	001000           001000              
+	1011011          1111001             
+	-------          -------            
+	001000           001000              
+	 000000           001000     -> 0 0 1 0 1 1     -> 000011011111 -> 0D F
+	  001000           001000     -> 0 0 1 1 1 1
+	   001000           001000
+	    000000           000000 
+	     001000           000000
+	      001000           001000
+	------           ------
+	001011     	  001111			
+```
+
+更标准与生动的计算过程：
+
+![][p7]
+
+1) 将多项式转为寄存器流程图
+2）初始每个寄存器为 0，然后将 00100010 按照从左到右顺序一个字节一个字节送入这个寄存器图
+3）每送入 1 个 bit 出来 2 个 bits
+4）最后将每次输出的 bit 对按顺序连接
+
+</br>
+
+### 3.2 Chat App
+
+这个例子比较简单，就是个输入框内输入啥，Message Debug 输出啥 `pdu_simple_demo2_chat.grc`：
+
+![][p3]
+
+
+</br>
+
+### 3.3 PDU 操作集合演示
+
+这个例子展示了关于 PDU 操作的各种块 `pdu_simple_demo3_pdu_tools.grc`：
+
+![][p4]
+
+其中几个新块的功能如下：
+
+- PDU Set：此块将向 PDU 元数据字典添加一个 key-value 数据对。
+- Add System Time：此块将把系统时间作为双精度浮点值添加到 PDU 元数据中。时间键可以由用户设置。
+- Note：通常，一些 PDU 处理将在这里进行，以便应用时间基准。
+- Time Delta：此块计算从添加时间键到现在所经过的毫秒数，并当流程图停止时打印统计信息。
+- PDU Split：PDU 将会被拆分成数据字典 metadata dictionary 和 统一向量 uniform vector , 然后分别作为 dict/uvec PMT 消息发出。
+
+</br>
+
+因此整个流程图每隔 400ms 输出一个大 PDU，然后增加一个 KEY1 键值对，再增加一个 SYS_TIME 键值对，然后做一个小处理（主要是演示耗费时间统计），然后增加一个 time_delta_ms 键值对，最后将信息分拆为字典和向量。
+
+字典的打印结果为：
+
+```
+time_delta :debug: time_delta_ms PDU received at 1706628911.598694 with time delta 0.045776 milliseconds
+******* MESSAGE DEBUG PRINT ********
+((time_delta_ms . 0.0457764) (SYS_TIME . 1.70663e+09) (KEY1 . 123.4))
+************************************
+```
+
+</br>
+
+
+
 # 参考链接
 
 [[1].维基百科 —— PDU][#1]    
