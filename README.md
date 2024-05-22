@@ -33,7 +33,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[19]. GNU Radio 系列教程（十九）—— GNU Radio PDU TX 将最小数据帧实施脉冲突发整形填充 --> 让帧更稳定][JC19]    
 - [[20]. GNU Radio 系列教程（二十）—— GNU Radio PDU TX 根升余弦深度介绍&发送数据帧的收尾之作][JC20]    
 - [[21]. GNU Radio 系列教程（二一）—— GNU Radio PDU RX 利用相关性估计器寻找数据帧的起始位置][JC21]    
-- [[22]. GNU Radio 系列教程（二一）—— GNU Radio PDU RX 利用多相时钟同步块实现消除时钟偏移][JC22]    
+- [[22]. GNU Radio 系列教程（二二）—— GNU Radio PDU RX 利用多相时钟同步块实现消除时钟偏移][JC22]    
+- [[23]. GNU Radio 系列教程（二三）—— GNU Radio PDU RX 利用自适应线性均衡器消除 ISI][JC23]    
 
 </br>
 
@@ -91,6 +92,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC20]:https://www.bilibili.com/video/BV1Bp421y72W/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JC21]:https://www.bilibili.com/video/BV1bw4m117SW/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JC22]:https://www.bilibili.com/video/BV1rC41177hP/?vd_source=84f94348691c2906fc1038d54989b7e0
+[JC23]:https://www.bilibili.com/video/BV15y411e7jh/?vd_source=84f94348691c2906fc1038d54989b7e0
 
 [JCX1]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX2]:https://www.bilibili.com/video/BV1ft4y1L7Ve/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
