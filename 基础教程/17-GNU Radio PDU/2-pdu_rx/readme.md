@@ -188,29 +188,74 @@ RLS 算法，它的实质是 Kalman 滤波算法的一个特例。其算法的�
 
 ### 2.4 科斯塔斯环路（Costas Loop）
 
+#### 2.4.1 直接体验
+
 https://wiki.gnuradio.org/index.php/Costas_Loop
 
-Costas 环路载波恢复模块，非常适合与 BPSK、QPSK 和 8PSK 同步。 Costas 环路锁定信号的中心频率并将其下变频至基带。
+Costas环路载波恢复模块，非常适合同步到BPSK、QPSK和8PSK。Costas环路锁定到信号的中心频率，并将其下变频到基带。
 
+note:
 
+- 相关性估计：搜索同步字，并使用相关结果来获得时间和相位偏移估计，这些估计作为流标签向下游传递，以供后续同步块使用
+- 多相时钟同步：减小 timing offset 影响
+- 线性均衡器：减小一般噪声影响
+- 科斯塔斯环路：减小频偏影响
+
+先看这个流程图：`Qpsk_stage5.grc`
+
+![][p16]
+
+效果图如下：
+
+![][p17]
+
+![][p18]
+
+从上图可以看出，假设我们已经均衡了信道，我们仍然面临相位和频率偏移的问题。均衡器往往不能快速适应，因此频率偏移很容易超出均衡器跟上的能力。此外，如果我们只是运行 CMA 均衡器，它所关心的只是收敛到单位圆。它不知道星座，所以当它锁定时，它会锁定在任何给定的相位。因此当我们使用 Costas 循环块（可以同步 BPSK、QPSK 和 8PSK）来校正任意相位偏移以及任意频率偏移。
+
+</br>
+
+#### 2.4.2 原理
+
+在维基百科中有对于克瑟塔斯环的详细介绍<sup> [[12][#12]]</sup>：
+
+科斯塔斯环是一种基于锁相环(PLL) 的电路，用于从抑制载波调制信号（例如双边带抑制载波信号）和相位调制信号（例如BPSK、QPSK ）中恢复载波频率。
+
+它是由通用电气公司的John P. Costas于 20 世纪 50 年代发明的。它的发明被描述为 “对现代数字通信产生了深远的影响”。
+
+科斯塔斯环的主要应用是无线接收器。与其他基于 PLL 的检测器相比，它的优势在于，在小偏差下，科斯塔斯环误差电压 sin(2(θ<sub>i</sub>-θ<sub>f</sub>)) 相比于 sin(θ<sub>i</sub>-θ<sub>f</sub>)。这意味着灵敏度加倍，也使科斯塔斯环特别适合跟踪多普勒频移载波，特别是在OFDM和GPS 接收器中。
 
 </br>
 
 
+**经典实现：**
+
+![][p19]
+
+在科斯塔斯环路的经典实现中，本地压控振荡器(VCO) 提供正交输出，两个相位检测器（例如乘积检测器）各一个。输入信号的相同相位也应用于两个相位检测器，并且每个相位检测器的输出都通过低通滤波器。这些低通滤波器的输出是另一个相位检测器的输入，该相位检测器的输出经过降噪滤波器后用于控制压控振荡器。整体环路响应由第三个相位检测器之前的两个独立的低通滤波器控制，而第三个低通滤波器在增益和相位裕度方面起着微不足道的作用。
+
+上图为 Costas 环路在“锁定”状态下绘制的图，其中由于 Costas 环路过程，VCO 频率和输入载波频率已变为相同。该图并不代表“解锁”状态。
+
+note：其推导过程推荐参考《深入浅出通信原理》中的 7.2 章数字调制的 QPSK 调制与解调推导，然后再看维基百科里的推导。
+
+
+</br>
 
 # 参考链接
 
 
-[[1]. GNU Radio —— Packet Communications][#1]
-[[2]. GNU Radio —— 符号同步][#2]
-[[3]. 百度百科 —— 微分][#3]
-[[4]. GNU Radio —— 分数重采样器（最小均方误差滤波）][#4]
-[[5]. 维基百科 —— 最小均方误差][#5]
-[[6]. 论坛 —— 分数重采样器丢失样本][#6]
-[[7]. GNU Radio —— 线性均衡器][#7]
-[[8]. 百度文库 —— 基于 LMS 算法的自适应线性均衡器设计(成都大学）][#8]
-[[9]. 豆丁文库 —— 基于 LMS 算法的自适应线性均衡器设计(成都大学）][#9]
-[[10]. 西电 —— 孙永军研究生数字通信课程课件-10 信道均衡][#10]
+[[1]. GNU Radio —— Packet Communications][#1]    
+[[2]. GNU Radio —— 符号同步][#2]    
+[[3]. 百度百科 —— 微分][#3]    
+[[4]. GNU Radio —— 分数重采样器（最小均方误差滤波）][#4]    
+[[5]. 维基百科 —— 最小均方误差][#5]    
+[[6]. 论坛 —— 分数重采样器丢失样本][#6]    
+[[7]. GNU Radio —— 线性均衡器][#7]     
+[[8]. 百度文库 —— 基于 LMS 算法的自适应线性均衡器设计(成都大学）][#8]    
+[[9]. 豆丁文库 —— 基于 LMS 算法的自适应线性均衡器设计(成都大学）][#9]     
+[[10]. 西电 —— 孙永军研究生数字通信课程课件-10 信道均衡][#10]    
+[[11]. KEYSIGHT —— Modulation Accuracy-EVM][#11]    
+[[12]. 维基百科 —— Costas loop][#12]    
 
 
 [#1]:https://www.gnuradio.org/doc/doxygen/page_packet_comms.html
@@ -223,6 +268,10 @@ Costas 环路载波恢复模块，非常适合与 BPSK、QPSK 和 8PSK 同步。
 [#8]:https://wenku.baidu.com/view/c44fbd6d561252d380eb6ea8?pcf=2&bfetype=new&bfetype=new&_wkts_=1715744403187
 [#9]:https://www.docin.com/p-2315244564.html
 [#10]:https://web.xidian.edu.cn/yjsun/teach.html
+[#11]:https://www.keysight.com/us/en/lib/resources/user-manuals/modulation-accuracyevm-332561.html#:~:text=EVM%20is%20computed%20by%20comparing,in%20the%20802.11B%20specification.
+[#12]:https://en.wikipedia.org/wiki/Costas_loop
+
+
 
 
 
@@ -241,8 +290,10 @@ Costas 环路载波恢复模块，非常适合与 BPSK、QPSK 和 8PSK 同步。
 [p13]:https://tuchuang.beautifulzzzz.com:3000/?path=/a6/449c5d0f361ac65d5cc1b6fc277f93.png
 [p14]:https://tuchuang.beautifulzzzz.com:3000/?path=/c8/6e5375bf61f4438852fc17bef8aa35.png
 [p15]:https://tuchuang.beautifulzzzz.com:3000/?path=/7f/666b6d9c8dcb7a9bc037197acdd1b4.png
-
-
+[p16]:https://tuchuang.beautifulzzzz.com:3000/?path=/76/c6d275212ce2ed15fb4493c31d7673.png
+[p17]:https://tuchuang.beautifulzzzz.com:3000/?path=/c3/a4300e75d96f92e41ecccc52c719a7.png
+[p18]:https://tuchuang.beautifulzzzz.com:3000/?path=/f1/677ce5f194a647d1fb8e0ab94c269a.png
+[p19]:https://tuchuang.beautifulzzzz.com:3000/?path=/b7/94394676f248a28f8431eba2d32203.png
 
 
 
