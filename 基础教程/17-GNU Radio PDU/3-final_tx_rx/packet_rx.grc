@@ -1,0 +1,762 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: Packet Operators
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: hb
+    hier_block_src_path: '.:'
+    id: packet_rx
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: ''
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 11]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: mark_delay
+  id: variable
+  parameters:
+    comment: ''
+    value: mark_delays[sps]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [208, 148.0]
+    rotation: 0
+    state: enabled
+- name: mark_delays
+  id: variable
+  parameters:
+    comment: "Tag Marking Delay for \nCorr Est block, indexed\nby sps.\n\nFound empirically."
+    value: '[0, 0, 34, 56, 87, 119]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [312, 148.0]
+    rotation: 0
+    state: enabled
+- name: modulated_sync_word
+  id: variable_modulate_vector
+  parameters:
+    comment: ''
+    data: preamble
+    mod: rxmod
+    taps: '[1]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 452.0]
+    rotation: 0
+    state: enabled
+- name: nfilts
+  id: variable
+  parameters:
+    comment: ''
+    value: '32'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 212.0]
+    rotation: 0
+    state: enabled
+- name: preamble
+  id: variable
+  parameters:
+    comment: ''
+    value: preamble_select[int(1.0/hdr_dec.rate())]
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 548.0]
+    rotation: 0
+    state: enabled
+- name: preamble_dummy
+  id: variable
+  parameters:
+    comment: 'use when header
+
+      FEC is Dummy'
+    value: '[0xac, 0xdd, 0xa4, 0xe2, 0xf2, 0x8c, 0x20, 0xfc]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [168, 676.0]
+    rotation: 0
+    state: enabled
+- name: preamble_rep
+  id: variable
+  parameters:
+    comment: 'use when header
+
+      FEC is Repetition (x3)'
+    value: '[0xe3, 0x8f, 0xc0, 0xfc, 0x7f, 0xc7, 0xe3, 0x81, 0xc0, 0xff, 0x80, 0x38,
+      0xff, 0xf0, 0x38, 0xe0, 0x0f, 0xc0, 0x03, 0x80, 0x00, 0xff, 0xff, 0xc0]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [336, 676.0]
+    rotation: 0
+    state: enabled
+- name: preamble_select
+  id: variable
+  parameters:
+    comment: ''
+    value: '{1: preamble_dummy, 3: preamble_rep}'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 612.0]
+    rotation: 0
+    state: enabled
+- name: rxmod
+  id: variable
+  parameters:
+    comment: ''
+    value: digital.generic_mod(hdr_const, False, sps, True, eb, False, False)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 548.0]
+    rotation: 0
+    state: enabled
+- name: blocks_multiply_by_tag_value_cc_0
+  id: blocks_multiply_by_tag_value_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\"amp_est\" \u662F\u76F8\u5173\u6027\u4F30\u8BA1\u5668\u8F93\u51FA\u7684\
+      \u4F30\u8BA1\n\u632F\u5E45\uFF0C\u4F30\u8BA1\u632F\u5E45\u662F\u5757\u5904\u7406\
+      \u7684\u65F6\u95F4\u7A97\u53E3\u4E2D\n\u4EFB\u4F55\u4E00\u4E2A\u6837\u672C\u7684\
+      \u6700\u5927\u632F\u5E45\uFF08\u81F3\u5C11\u5305\u62EC\n\u6574\u4E2A\u540C\u6B65\
+      \u5B57\uFF09\n\n\u8FD9\u4E2A\u5757\uFF1A\u8F93\u51FA = \u8F93\u5165 * \u590D\
+      \u6570\u5E38\u6570\uFF08\u590D\u6570\u5E38\u6570\u4ECE\u6307\u5B9A\u540D\u79F0\
+      \u7684\u6807\u7B7E\u4E2D\u627E\u5230\uFF09"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: '"amp_est"'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 316.0]
+    rotation: 0
+    state: enabled
+- name: blocks_tagged_stream_multiply_length_0
+  id: blocks_tagged_stream_multiply_length
+  parameters:
+    affinity: ''
+    alias: ''
+    c: pld_const.bits_per_symbol()
+    comment: "\u5141\u8BB8\u7F29\u653E\u6807\u8BB0\u6D41\u4E2D\u6052\u5B9A\u901F\u7387\
+      \u53D8\u5316\u5757\u7684\u6807\u8BB0\u6D41\u957F\u5EA6\u6807\u8BB0\u3002\n\u641C\
+      \u7D22\u7279\u5B9A\u6807\u8BB0 (\"payload symbols\") \u7684\u6D41\u957F\u5EA6\
+      \u6807\u7B7E\n\u5E76\u5C06\u8BE5\u957F\u5EA6\u4E58\u4EE5\u5E38\u6570 (pld_const.bits_per_symbol())\u3002"
+    lengthtagname: '"payload symbols"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1456, 504.0]
+    rotation: 180
+    state: enabled
+- name: digital_constellation_soft_decoder_cf_0
+  id: digital_constellation_soft_decoder_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "pld_const \u8F7D\u8377\u7684\u661F\u5EA7\u8C03\u5236\u5BF9\u8C61"
+    constellation: pld_const
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1552, 356.0]
+    rotation: 0
+    state: enabled
+- name: digital_constellation_soft_decoder_cf_0_0
+  id: digital_constellation_soft_decoder_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ".\n.\nhdr_const \u5934\u7684\u661F\u5EA7\u8C03\u5236\u5BF9\u8C61"
+    constellation: hdr_const
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1552, 196.0]
+    rotation: 0
+    state: enabled
+- name: digital_corr_est_cc_0
+  id: digital_corr_est_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u76F8\u5173\u6027\u4F30\u8BA1\u5668\uFF0C\u4E0B\u9762\u662F\u5176\u540C\
+      \u6B65\u5B57"
+    mark_delay: mark_delay
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sps: sps
+    symbols: modulated_sync_word
+    threshold: '0.999'
+    threshold_method: digital.THRESHOLD_ABSOLUTE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 308.0]
+    rotation: 0
+    state: enabled
+- name: digital_costas_loop_cc_0_0
+  id: digital_costas_loop_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u79D1\u65AF\u5854\u65AF\u73AF\u8DEF\uFF1A\u51CF\u5C0F\u9891\u7387\u548C\
+      \u76F8\u4F4D\u504F\u79FB"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    order: hdr_const.arity()
+    use_snr: 'False'
+    w: 6.28/200.0
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 200.0]
+    rotation: 0
+    state: enabled
+- name: digital_costas_loop_cc_0_0_0
+  id: digital_costas_loop_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    order: pld_const.arity()
+    use_snr: 'False'
+    w: 6.28/200.0
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 360.0]
+    rotation: 0
+    state: enabled
+- name: digital_crc32_async_bb_0
+  id: digital_crc32_async_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    check: 'True'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1752, 644.0]
+    rotation: 0
+    state: enabled
+- name: digital_header_payload_demux_0
+  id: digital_header_payload_demux
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    guard_interval: '0'
+    header_len: (hdr_format.header_nbits() * int(1.0/hdr_dec.rate())) //  hdr_const.bits_per_symbol()
+    header_padding: '0'
+    items_per_symbol: '1'
+    length_tag_key: '"payload symbols"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    output_symbols: 'True'
+    samp_rate: '1'
+    special_tags: '[]'
+    timing_tag_key: '"rx_time"'
+    trigger_tag_key: '"time_est"'
+    type: complex
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [928, 244.0]
+    rotation: 0
+    state: enabled
+- name: digital_pfb_clock_sync_xxx_0
+  id: digital_pfb_clock_sync_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u591A\u9879\u65F6\u949F\u540C\u6B65\u7528\u6765\u6D88\u9664 timing\
+      \ offset"
+    filter_size: nfilts
+    init_phase: nfilts/2
+    loop_bw: 6.28/400.0
+    max_dev: '1.5'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    osps: '1'
+    sps: sps
+    taps: psf_taps
+    type: ccf
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 276.0]
+    rotation: 0
+    state: enabled
+- name: digital_protocol_parser_b_0
+  id: digital_protocol_parser_b
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u6839\u636E hdr_format \u89E3\u6790\u6570\u636E\u6D41\n\u9996\u5148\
+      \u5BFB\u627E\u8BBF\u95EE\u4EE3\u7801\u4F5C\u4E3A\u5E27\u5934\uFF0C\n\u7136\u540E\
+      \u4F9D\u6B21\u627E\u5230\u5176\u4ED6\u5185\u5BB9\u8F93\u51FA PDU"
+    format: hdr_format
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [928, 148.0]
+    rotation: 180
+    state: enabled
+- name: eb
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Filter Rolloff
+    short_id: ''
+    type: eng_float
+    value: '0.35'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [24, 612.0]
+    rotation: 0
+    state: enabled
+- name: fec_async_decoder_0
+  id: fec_async_decoder
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "FEC \u5F02\u6B65\u89E3\u7801\n- pld_dec\n- 1500*8"
+    decoder: pld_dec
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mtu: 1500*8
+    packed: 'True'
+    rev_pack: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1512, 636.0]
+    rotation: 0
+    state: enabled
+- name: fec_generic_decoder_0
+  id: fec_generic_decoder
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ".\n.\n.\n.\nhdr_dec \u5934\u7684 FEC \u89E3\u7801"
+    decoder: hdr_dec
+    itype: float
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    otype: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1552, 148.0]
+    rotation: 180
+    state: enabled
+- name: hdr_const
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Header constellation
+    short_id: ''
+    type: ''
+    value: digital.constellation_calcdist((digital.psk_2()[0]), (digital.psk_2()[1]),
+      2, 1).base()
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 4.0]
+    rotation: 0
+    state: enabled
+- name: hdr_dec
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Header FEC Decoder
+    short_id: ''
+    type: ''
+    value: ' fec.dummy_decoder.make(8000)'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 4.0]
+    rotation: 0
+    state: enabled
+- name: hdr_format
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Header Formatter
+    short_id: ''
+    type: ''
+    value: digital.header_format_default(digital.packet_utils.default_access_code,
+      0)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [928, 4.0]
+    rotation: 0
+    state: enabled
+- name: note_0
+  id: note
+  parameters:
+    alias: ''
+    comment: "\u6B64\u5757\u65E8\u5728\u5BF9\u7A81\u53D1\u4F20\u8F93\u4E2D\u7684\u6570\
+      \u636E\u5305\u8FDB\u884C\u89E3\u590D\u7528\u3002\n\u6B64\u5757\u7684\u5178\u578B\
+      \u5E94\u7528\u662F\u5F53\u60A8\u63A5\u6536\u957F\u5EA6\u5C1A\u672A\u786E\u5B9A\
+      \u7684\u6570\u636E\u5305\u65F6\u3002\n\u6B64\u5757\u5C06\u628A\u62A5\u5934\u90E8\
+      \u5206\u4F20\u9012\u7ED9\u5176\u4ED6\u5757\u8FDB\u884C\u89E3\u8C03\u3002\n\u7136\
+      \u540E\uFF0C\u5B83\u5C06\u4F7F\u7528\u89E3\u8C03\u540E\u7684\u62A5\u5934\u4E2D\
+      \u7684\u4FE1\u606F\u8F93\u51FA\u6709\u6548\u8F7D\u8377\u3002\n\u62A5\u5934\u7684\
+      \u5F00\u5934\u9700\u8981\u901A\u8FC7\u89E6\u53D1\u4FE1\u53F7\u6765\u8BC6\u522B\
+      \u3002"
+    note: "\u62A5\u5934/\u6709\u6548\u8F7D\u8377\u89E3\u590D\u7528\u7684\u529F\u80FD"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [928, 468.0]
+    rotation: 0
+    state: enabled
+- name: pad_sink_0
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: pkt out
+    num_streams: '1'
+    optional: 'True'
+    type: message
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1912, 644.0]
+    rotation: 0
+    state: enabled
+- name: pad_sink_1
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: precrc
+    num_streams: '1'
+    optional: 'True'
+    type: message
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1752, 692.0]
+    rotation: 0
+    state: enabled
+- name: pad_sink_2
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: hdr_out
+    num_streams: '1'
+    optional: 'True'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 196.0]
+    rotation: 180
+    state: enabled
+- name: pad_sink_3
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: pld_out
+    num_streams: '1'
+    optional: 'True'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 420.0]
+    rotation: 180
+    state: enabled
+- name: pad_sink_3_0
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: pld_phs
+    num_streams: '1'
+    optional: 'True'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1552, 308.0]
+    rotation: 0
+    state: enabled
+- name: pad_sink_5
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: timing
+    num_streams: '1'
+    optional: 'True'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 220.0]
+    rotation: 180
+    state: enabled
+- name: pad_sink_7
+  id: pad_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: corr est
+    num_streams: '1'
+    optional: 'True'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [332.0, 448]
+    rotation: 270
+    state: enabled
+- name: pad_source_0
+  id: pad_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    label: in
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_streams: '1'
+    optional: 'False'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 340.0]
+    rotation: 0
+    state: enabled
+- name: pdu_tagged_stream_to_pdu_0
+  id: pdu_tagged_stream_to_pdu
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u5C06\u63A5\u6536\u5230\u7684\u6D41\u6570\u636E\u548C\u6807\u7B7E\u8F6C\
+      \u6362\u4E3A PDU\u3002\n\u53D1\u9001\u7684\u6D88\u606F\u662F PMT \u5BF9\uFF08\
+      \u7531 pmt::cons() \u521B\u5EFA\uFF09\u3002\n\u7B2C\u4E00\u4E2A\u5143\u7D20\u662F\
+      \u5305\u542B\u6240\u6709\u6807\u7B7E\u7684\u5B57\u5178\u3002\n\u7B2C\u4E8C\u4E2A\
+      \u5143\u7D20\u662F\u5305\u542B\u5B9E\u9645\u6570\u636E\u7684\u5411\u91CF\u3002"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tag: '"payload symbols"'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1272, 644.0]
+    rotation: 0
+    state: enabled
+- name: pld_const
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Payload constellation
+    short_id: ''
+    type: ''
+    value: digital.constellation_calcdist((digital.psk_2()[0]), (digital.psk_2()[1]),
+      2, 1).base()
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1304, 84.0]
+    rotation: 0
+    state: enabled
+- name: pld_dec
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Payload FEC Decoder
+    short_id: ''
+    type: ''
+    value: ' fec.dummy_decoder.make(8000)'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 84.0]
+    rotation: 0
+    state: enabled
+- name: psf_taps
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Pulse Shape Filter
+    short_id: ''
+    type: ''
+    value: '[0,]'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 484.0]
+    rotation: 0
+    state: enabled
+- name: sps
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: Samples per Symbol
+    short_id: ''
+    type: eng_float
+    value: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [144, 212.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [blocks_multiply_by_tag_value_cc_0, '0', digital_pfb_clock_sync_xxx_0, '0']
+- [blocks_tagged_stream_multiply_length_0, '0', pdu_tagged_stream_to_pdu_0, '0']
+- [digital_constellation_soft_decoder_cf_0, '0', blocks_tagged_stream_multiply_length_0,
+  '0']
+- [digital_constellation_soft_decoder_cf_0_0, '0', fec_generic_decoder_0, '0']
+- [digital_corr_est_cc_0, '0', blocks_multiply_by_tag_value_cc_0, '0']
+- [digital_corr_est_cc_0, '1', pad_sink_7, '0']
+- [digital_costas_loop_cc_0_0, '0', digital_constellation_soft_decoder_cf_0_0, '0']
+- [digital_costas_loop_cc_0_0_0, '0', digital_constellation_soft_decoder_cf_0, '0']
+- [digital_costas_loop_cc_0_0_0, '0', pad_sink_3_0, '0']
+- [digital_crc32_async_bb_0, out, pad_sink_0, in]
+- [digital_header_payload_demux_0, '0', digital_costas_loop_cc_0_0, '0']
+- [digital_header_payload_demux_0, '0', pad_sink_2, '0']
+- [digital_header_payload_demux_0, '1', digital_costas_loop_cc_0_0_0, '0']
+- [digital_header_payload_demux_0, '1', pad_sink_3, '0']
+- [digital_pfb_clock_sync_xxx_0, '0', digital_header_payload_demux_0, '0']
+- [digital_pfb_clock_sync_xxx_0, '0', pad_sink_5, '0']
+- [digital_protocol_parser_b_0, info, digital_header_payload_demux_0, header_data]
+- [fec_async_decoder_0, out, digital_crc32_async_bb_0, in]
+- [fec_async_decoder_0, out, pad_sink_1, in]
+- [fec_generic_decoder_0, '0', digital_protocol_parser_b_0, '0']
+- [pad_source_0, '0', digital_corr_est_cc_0, '0']
+- [pdu_tagged_stream_to_pdu_0, pdus, fec_async_decoder_0, in]
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.9.2
