@@ -37,6 +37,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[23]. GNU Radio 系列教程（二三）—— GNU Radio PDU RX 利用自适应线性均衡器消除 ISI][JC23]    
 - [[24]. GNU Radio 系列教程（二四）—— GNU Radio PDU RX 利用 Costas Loop 校正相位和频率偏移][JC24]    
 - [[25]. GNU Radio 系列教程（二五）—— 硬核，基于通信原理设计一个文件传输系统][JC25]    
+- [[26]. GNU Radio 系列教程（二六）—— 开胃菜，hackrf 发送 ble 广播包的简单 DEMO][JC26]    
 
 
 </br>
@@ -53,6 +54,11 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 </br>
 
+#### SDR 小工具教程：
+
+- [[1]. SDR 小工具－－一分钟将吃灰的 hackrf 化作价值数千元的频谱分析仪][JCT1]    
+
+</br>
 
 #### 基础块教程：
 
@@ -99,8 +105,10 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC22]:https://www.bilibili.com/video/BV1rC41177hP/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JC23]:https://www.bilibili.com/video/BV15y411e7jh/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JC24]:https://www.bilibili.com/video/BV1jr421w7mj/?vd_source=84f94348691c2906fc1038d54989b7e0
-[JC25]:https://www.bilibili.com/video/BV1rz421a7Vc/?vd_source=84f94348691c2906fc1038d54989b7e0
+[JC25]:https://www.bilibili.com/video/BV1rz421a7Vc/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[JC26]:https://www.bilibili.com/video/BV1VT421k7cA/?vd_source=84f94348691c2906fc1038d54989b7e0    
 
+[JCT1]:https://www.bilibili.com/video/BV1YS421R75M/?vd_source=84f94348691c2906fc1038d54989b7e0
 
 [JCX1]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX2]:https://www.bilibili.com/video/BV1ft4y1L7Ve/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
