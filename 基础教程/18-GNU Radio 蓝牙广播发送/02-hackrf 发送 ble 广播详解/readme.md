@@ -324,10 +324,10 @@ ll_datas = create_ll_payload(mac, adv_datas, channel)
 
 第二节我们已经能够组成 BLE 广播数据包了，本节我们将介绍如何将其进行采样、调制、利用 SDR 发射出去。
 
-1）将数据包按照小端模式 1 字节变 8 bit：ll_datas_bit = bsp_string.bytes_to_bits_lsb(ll_datas)
-2）构建 sample_per_symbol = 4 的采样数据：采样数据是在 ll_datas_bit 前后各插入 15 个 0，中间的 ll_datas_bit 每 bit 后面跟 3 个 0，同时 ll_datas_bit 每 bit 的 0 变 -1
-3）对采样数据实施高斯滤波
-4）对高斯滤波后的数据实时 FSK-IQ 调制
+1）将数据包按照小端模式 1 字节变 8 bit：ll_datas_bit = bsp_string.bytes_to_bits_lsb(ll_datas)    
+2）构建 sample_per_symbol = 4 的采样数据：采样数据是在 ll_datas_bit 前后各插入 15 个 0，中间的 ll_datas_bit 每 bit 后面跟 3 个 0，同时 ll_datas_bit 每 bit 的 0 变 -1    
+3）对采样数据实施高斯滤波    
+4）对高斯滤波后的数据实时 FSK-IQ 调制    
 
 看代码一下就明白了：
 
@@ -382,22 +382,22 @@ def gen_sample_from_phy_bit(bit):
 
 对于模拟AM，调制信号 m（t）是载波c（t）和基带信号a（t）的数学乘积。相应的硬件是混频器，其体系结构和数学表示是乘法器。
 
-$$
+```math
 m(t)=a(t)c(t)=a(t)cos(2\pi f_0t)，周期 f_0，频率 F0 = 1/f_0
-$$
+```
 
 我们称 a(t) 为基带信号是因为它的频谱（spectrum）在低频范围（例如：HiFi 音频信号为 \[0-20kHz]）
 
 对于常见数字调制：
 调制 | 表达式 
 ---|---
-FSK | $$$s(t)=Acos(2\pi F_mt+ϕ)$$$ | ![][p10]
-ASK | $$$s(t)=A_mcos(2\pi Ft+ϕ)$$$ | ![][p11]
-PSK | $$$s(t)=Acos(2\pi Ft+ϕ_m)$$$ | ![][p12]
+FSK | $s(t)=Acos(2 \pi F_m t+ϕ)$ | ![][p10]
+ASK | $s(t)=A_m cos(2 \pi Ft+ϕ)$ | ![][p11]
+PSK | $s(t)=Acos(2 \pi Ft+ϕ_m)$ | ![][p12]
 
 </br>
 
-将 PSK 和 ASK 公式结合，并利用 $$$cos(α+β) = cosα*cosβ-sinα*sinβ$$$ 对其进行展开：
+将 PSK 和 ASK 公式结合，并利用 $`cos(α+β)=cosα*cosβ-sinα*sinβ`$ 对其进行展开：
 
 ![][p14]
 
@@ -418,12 +418,13 @@ QPSK：使用 π/4 , π3/4, π5/4, π7/4 四个相位
 
 </br>
 
-对于 FSK 有点特殊，我们假设是 FSK 调制（有 F0 和 F1 两种频率（$$$F_c=(F_0+F_1)/2$$$））：
+对于 FSK 有点特殊，我们假设是 FSK 调制（有 F0 和 F1 两种频率（$`F_c = \dfrac{ F_0 + F_1 }{2}`$））：
 
-$$
-s(t)= \begin{cases}
-cos(2\pi F_0t) & bit = 0 \\
-cos(2\pi F_1t) & bit = 1 \\
+$$  
+s(t)=
+\begin{cases} 
+	cos(2\pi F_0 t) & bit = 0 \\
+	cos(2\pi F_1 t) & bit = 1
 \end{cases}
 $$
 
@@ -434,50 +435,54 @@ $$
 上路（I路）：
 
 $$
-cos(2\pi F_0t)*cos(2\pi F_ct) = 1/2*[cos(2\pi (F_0-F_c)t)+cos(2\pi (F_0+F_c)t)] \\
-cos(2\pi F_1t)*cos(2\pi F_ct) = 1/2*[cos(2\pi (F_1-F_c)t)+cos(2\pi (F_1+F_c)t)]
+cos(2 \pi F_0 t)*cos(2 \pi F_c t) = \dfrac{1}{2} [cos(2 \pi (F_0 - F_c) t) + cos(2 \pi (F_0 + F_c) t)]
 $$
 
-经过 LPF 低通滤波后 $$$cos(2\pi (F_0+F_c)t)$$$ 和 $$$cos(2\pi (F_1+F_c)t)$$$ 将会被滤除，I 路收到的信号 yI(t) 为：
+$$
+cos(2 \pi F_1 t)*cos(2 \pi F_c t) = \dfrac{1}{2} [cos(2 \pi (F_1 - F_c) t) + cos(2 \pi (F_1 + F_c) t)]
+$$
+
+经过 LPF 低通滤波后 $cos(2 \pi (F_0 + F_c) t)$ 和 $cos(2\pi (F_1 + F_c) t)$ 将会被滤除，I 路收到的信号 yI(t) 为：
 
 $$
-y_I(t)= \begin{cases}
-1/2*cos(2\pi (F_0-F_c)t) & bit = 0\\
-1/2*cos(2\pi (F_1-F_c)t) & bit = 1\\
+y_I(t)=
+\begin{cases}
+	\dfrac{1}{2} cos(2 \pi (F_0-F_c) t) & \text{for bit 0} \\
+	\dfrac{1}{2} cos(2 \pi (F_1-F_c) t) & \text{for bit 1} 
 \end{cases}
 $$
 
-这里我们定义：$$$F_{b1} = F_1-F_c$$$ AND $$$F_{b0} = F_0-F_c$$$
-根据 $$$F_1、F_0、F_c$$$ 的定义，可知：$$$F_{b1}=-F_{b0}$$$
+这里我们定义： $F_{b1} = F_1-F_c$ AND $F_{b0} = F_0-F_c$ 
+根据 $F_1、F_0、F_c$ 的定义，可知： $F_{b1}=-F_{b0}$
 
 同样的 Q 路的也能算出来：
 
 $$
-y_Q(t) = 
+y_Q(t) =
 \begin{cases}
      \dfrac{1}{2} cos(2 \pi (F_1-F_c) t) =  \dfrac{1}{2} cos(2 \pi (F_{b1}-\dfrac{\pi}{2}) t) = \dfrac{1}{2} sin( 2\pi F_{b1} t) & \text{for bit 1} \\
      \dfrac{1}{2} cos(2 \pi (F_0-F_c) t)=  \dfrac{1}{2} cos(2 \pi (F_{b0}-\dfrac{\pi}{2}) t) = \dfrac{1}{2} sin( 2\pi F_{b0} t) & \text{for bit 0}
 \end{cases}
 $$
 
-现在如果我们定义最终的信号为：$$$y_1(t) = y_{I1}(t)+jy_{Q1}(t) = e^{j 2\pi F_{b1} t}$$$，这样因为我们的信号是复数信号，我们能在频域区分出 $$$F_{b0}$$$ 和 $$$F_{b1}$$$，正是如此，我们也能设计所需要的滤波器和检测器。
+现在如果我们定义最终的信号为： $`y_1 (t) = y_{I1}(t) + j y_{Q1}(t) = e^{j2 \pi F_{b1}t}`$ ，这样因为我们的信号是复数信号，我们能在频域区分出 $F_{b0}$ 和 $F_{b1}$，正是如此，我们也能设计所需要的滤波器和检测器。
 
 
 </br>
 
 
-[[1].「应用笔记」BLE 低功耗蓝牙技术｜协议栈简介][#1]
-[[2]. SDR 教程实战 —— 利用 GNU Radio + HackRF 手把手深入了解蓝牙协议栈（从电磁波 -> 01数据流 -> 蓝牙数据包）][#2]
-[[3]. 蓝牙之BLE学习小结][#6]
-[[4]. 蓝牙BLE的CRC24校验代码C语言][#5]
-[[5]. CRC（循环冗余校验）在线计算][#4]
-[[6]. Custom IQ - FSK 常见无线通信的调制方式对比][#7]
-[[7]. 维基百科 IQ 调制][#8]
-[[8]. BOOK —— I/Q 信号 101：既不复杂也不复杂(详细)][#9]
-[[9]. 论坛 —— FSK Modulation using I/Q(详细+GOOD)][#10]
-[[10]. 论坛 —— FSK and IQ modulation(细)][#11]
-[[11]. GnuRadio —— IQ Complex 教程][#12]
-[[12]. CSDN —— Markdown编辑分段函数][#13]
+[[1].「应用笔记」BLE 低功耗蓝牙技术｜协议栈简介][#1]     
+[[2]. SDR 教程实战 —— 利用 GNU Radio + HackRF 手把手深入了解蓝牙协议栈（从电磁波 -> 01数据流 -> 蓝牙数据包）][#2]    
+[[3]. 蓝牙之BLE学习小结][#6]    
+[[4]. 蓝牙BLE的CRC24校验代码C语言][#5]    
+[[5]. CRC（循环冗余校验）在线计算][#4]     
+[[6]. Custom IQ - FSK 常见无线通信的调制方式对比][#7]    
+[[7]. 维基百科 IQ 调制][#8]    
+[[8]. BOOK —— I/Q 信号 101：既不复杂也不复杂(详细)][#9]    
+[[9]. 论坛 —— FSK Modulation using I/Q(详细+GOOD)][#10]    
+[[10]. 论坛 —— FSK and IQ modulation(细)][#11]    
+[[11]. GnuRadio —— IQ Complex 教程][#12]    
+[[12]. CSDN —— Markdown编辑分段函数][#13]    
 
 
 
