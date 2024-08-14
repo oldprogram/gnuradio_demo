@@ -39,6 +39,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[25]. GNU Radio 系列教程（二五）—— 硬核，基于通信原理设计一个文件传输系统][JC25]    
 - [[26]. GNU Radio 系列教程（二六）—— 开胃菜，hackrf 发送 ble 广播包的简单 DEMO][JC26]    
 - [[27]. GNU Radio 系列教程（二七）—— 硬核，hackrf 发送 ble 广播包基于协议栈的详解][JC27]    
+- [[28]. GNU Radio 系列教程（二八）—— 用功率阈值侦测的例子介绍 GNU Radio 复杂交互页面设计][JC28]    
+
 
 </br>
 
@@ -107,7 +109,9 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC24]:https://www.bilibili.com/video/BV1jr421w7mj/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JC25]:https://www.bilibili.com/video/BV1rz421a7Vc/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [JC26]:https://www.bilibili.com/video/BV1VT421k7cA/?vd_source=84f94348691c2906fc1038d54989b7e0    
-[JC27]:https://www.bilibili.com/video/BV1WWv1emEvA/?vd_source=84f94348691c2906fc1038d54989b7e0 
+[JC27]:https://www.bilibili.com/video/BV1WWv1emEvA/?vd_source=84f94348691c2906fc1038d54989b7e0
+[JC28]:https://www.bilibili.com/video/BV1pxYye6Eav/?vd_source=84f94348691c2906fc1038d54989b7e0    
+
 
 [JCT1]:https://www.bilibili.com/video/BV1YS421R75M/?vd_source=84f94348691c2906fc1038d54989b7e0
 
