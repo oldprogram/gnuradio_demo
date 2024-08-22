@@ -51,7 +51,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[3]. SDR 教程实战（三） —— 利用 GNU Radio + HackRF + WireShark 做蓝牙抓包器（超低成本）][JCX3]
 - [[4]. SDR 教程实战（四） —— 利用 GNU Radio + HackRF 手把手深入了解蓝牙协议栈（从电磁波 -> 01数据流 -> 蓝牙数据包）][JCX4]
 - [[5]. SDR 教程实战（五） —— 利用 GNU Radio + LimeSDR+ WireShark 做蓝牙抓包器（上上个视频使用 HackRF）][JCX5]
-- [[6]. SDR 教程实战（五） —— 利用两个 hackrf 实现大文件（视频）高速传输][JCX6]     
+- [[6]. SDR 教程实战（六） —— 利用两个 hackrf 实现大文件（视频）高速传输][JCX6]     
+- [[7]. SDR 教程实战（七） —— 用 HackRF 实施 GPS 欺诈][JCX7]     
 
 
 </br>
@@ -121,6 +122,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX4]:https://www.bilibili.com/video/BV18h4y1Y7mf/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX5]:https://www.bilibili.com/video/BV1Q84y1D7tZ/?spm_id_from=333.999.0.0
 [JCX6]:https://www.bilibili.com/video/BV1NJ4m1M7H3/?spm_id_from=333.1007.0.0&vd_source=84f94348691c2906fc1038d54989b7e0
+[JCX7]:https://www.bilibili.com/video/BV1sZWjerEP3/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 
 [pbilibili]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/5aaaa5db7dfd1139793c6726f82cfc.png
