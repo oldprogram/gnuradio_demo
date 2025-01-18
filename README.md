@@ -42,6 +42,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[28]. GNU Radio 系列教程（二八）—— 用功率阈值侦测的例子介绍 GNU Radio 复杂交互页面设计][JC28]    
 - [[29]. GNU Radio 系列教程（二九）—— GNU Radio OFDM 正交频分复用收发 DEMO 演示][JC29]    
 - [[30]. GNU Radio 系列教程（三十）—— GNU Radio OFDM TX 详解][JC30]    
+- [[31]. GNU Radio 系列教程（三一）—— GNU Radio OFDM 基础调制之 AM-DSB][JC31]    
 
 
 </br>
@@ -116,6 +117,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC28]:https://www.bilibili.com/video/BV1pxYye6Eav/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [JC29]:https://www.bilibili.com/video/BV1AXc3ecETY/?vd_source=84f94348691c2906fc1038d54989b7e0   
 [JC30]:https://www.bilibili.com/video/BV1B8c6eBERW/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[JC31]:https://www.bilibili.com/video/BV1B8c6eBERW/?vd_source=84f94348691c2906fc1038d54989b7e0        
 
 
 [JCT1]:https://www.bilibili.com/video/BV1YS421R75M/?vd_source=84f94348691c2906fc1038d54989b7e0
