@@ -43,6 +43,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[29]. GNU Radio 系列教程（二九）—— GNU Radio OFDM 正交频分复用收发 DEMO 演示][JC29]    
 - [[30]. GNU Radio 系列教程（三十）—— GNU Radio OFDM TX 详解][JC30]    
 - [[31]. GNU Radio 系列教程（三一）—— GNU Radio OFDM 基础调制之 AM-DSB][JC31]    
+- [[32]. GNU Radio 系列教程（三二）—— GNU Radio OFDM 基础调制之 AM-SSB][JC32]    
 
 
 </br>
@@ -117,7 +118,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC28]:https://www.bilibili.com/video/BV1pxYye6Eav/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [JC29]:https://www.bilibili.com/video/BV1AXc3ecETY/?vd_source=84f94348691c2906fc1038d54989b7e0   
 [JC30]:https://www.bilibili.com/video/BV1B8c6eBERW/?vd_source=84f94348691c2906fc1038d54989b7e0    
-[JC31]:https://www.bilibili.com/video/BV1B8c6eBERW/?vd_source=84f94348691c2906fc1038d54989b7e0        
+[JC31]:https://www.bilibili.com/video/BV1ruwPegELP?vd_source=84f94348691c2906fc1038d54989b7e0    
+[JC32]:https://www.bilibili.com/video/BV158fYYBEj3?vd_source=84f94348691c2906fc1038d54989b7e0           
 
 
 [JCT1]:https://www.bilibili.com/video/BV1YS421R75M/?vd_source=84f94348691c2906fc1038d54989b7e0
