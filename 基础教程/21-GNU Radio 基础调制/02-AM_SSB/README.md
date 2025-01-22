@@ -26,7 +26,7 @@ SSB | 单边带调制 | ![][p11] | ![][p12] |
 
 ### 二、SSB 实现
 
-方法 | 细节 | 
+方法 | 细节 | x
 ---|---|---
 滤波法 | ![][p13] | ![][p14]
 相移法 | ![][p15] | ![][p16]
@@ -71,7 +71,7 @@ SSB | 单边带调制 | ![][p11] | ![][p12] |
 [[1].WiKi —— Simulation example: Single Sideband transceiver][#1]    
 [[2].BLOG —— SSB Modulation on GNU Radio][#2]    
 [[3].BLOG —— RTL-SDR for SSB on GNU Radio][#3]    
-[[4].BLOG —— 基于GNU Radio 无线电平台实现各种常规通信信号的模拟][#4]    
+[[4].BLOG —— 基于GNU Radio 无线电平台实现各种常规通信信号的模拟][#4]     
 [[5].BLOG —— Building a Remote SSB Receiver with an RTL-SDR, OrangePi and GNU Radio][#5]    
 [[6].BLOG —— GNURadio SSB Receiver and Recording IQ Data][#6]    
 [[7].GITHUB —— gnuradio-grc-exsamples][#7]    
@@ -81,8 +81,8 @@ SSB | 单边带调制 | ![][p11] | ![][p12] |
 
 [#1]:https://wiki.gnuradio.org/index.php/Simulation_example:_Single_Sideband_transceiver    
 [#2]:https://jeremyclark.ca/wp/telecom/ssb-modulation-on-gnu-radio/    
-[#3]:https://jeremyclark.ca/wp/telecom/rtl-sdr-for-ssb-on-gnu-radio/    
-[#4]:ttps://blog.csdn.net/weixin_37728585/article/details/122055255    
+[#3]:https://jeremyclark.ca/wp/telecom/rtl-sdr-for-ssb-on-gnu-radio/      
+[#4]:https://blog.csdn.net/weixin_37728585/article/details/122055255        
 [#5]:https://www.rtl-sdr.com/building-a-remote-ssb-receiver-with-an-rtl-sdr-orangepi-and-gnu-radio/    
 [#6]:http://play.fallows.ca/wp/radio/software-defined-radio/gnuradio-ssb-receiver/    
 [#7]:https://github.com/antonjan/gnuradio-grc-examples/tree/master    
