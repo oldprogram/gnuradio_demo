@@ -1,0 +1,307 @@
+options:
+  parameters:
+    author: btfz
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: PM
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: n
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: int
+    start: '1'
+    step: '2'
+    stop: '8'
+    value: '8'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 12.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '48000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [176, 12.0]
+    rotation: 0
+    state: enabled
+- name: sens
+  id: variable
+  parameters:
+    comment: ''
+    value: 3.14159*n/8
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 12.0]
+    rotation: 0
+    state: true
+- name: analog_phase_modulator_fc_0
+  id: analog_phase_modulator_fc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sensitivity: sens
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [272, 532.0]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: "in\uFF0C\u53D6\u503C\u8303\u56F4\uFF1A-1~1"
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: float
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 196.0]
+    rotation: 0
+    state: true
+- name: blocks_float_to_complex_0
+  id: blocks_float_to_complex
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: complex(cos,sin)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [696, 232.0]
+    rotation: 0
+    state: true
+- name: blocks_multiply_const_vxx_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "in*sensitivity\n\u8FD9\u91CC sens = pi*n/8 (n\u53D6\u503C\u8303\u56F4\
+      \u662F\uFF1A1~8\uFF09"
+    const: sens
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 236.0]
+    rotation: 0
+    state: true
+- name: blocks_throttle2_0
+  id: blocks_throttle2
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: "\u8282\u6D41\u9600\uFF0C\u63A7\u5236\u6D41\u901F"
+    ignoretag: 'True'
+    limit: auto
+    maximum: '0.1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 236.0]
+    rotation: 0
+    state: true
+- name: blocks_transcendental_0
+  id: blocks_transcendental
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: sin(in*sens)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: sin
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 276.0]
+    rotation: 0
+    state: true
+- name: blocks_transcendental_0_0
+  id: blocks_transcendental
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: cos(in*sens)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: cos
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 212.0]
+    rotation: 0
+    state: true
+- name: note_0
+  id: note
+  parameters:
+    alias: ''
+    comment: "Phase modulator. output = complex(cos(in*sensitivity), sin(in*sensitivity))\n\
+      \u4E0A\u9762\u6D41\u7A0B\u56FE\u5C31\u662F\u5BF9\u8BE5\u516C\u5F0F\u7684\u5B9E\
+      \u73B0\uFF0C\u6211\u4EEC\u7528 cos \u4F5C\u4E3A\u8F93\u5165\uFF0C\u901A\u8FC7\
+      \u8C03\u8282 n \u7684\u4E0D\u540C\u503C\uFF0C\u5728 IQ \u661F\u5EA7\u56FE\u4E2D\
+      \u770B\u8C03\u76F8\u7684\u7ED3\u679C\uFF1A\n\n- \u5F53 n = 8 \u65F6\uFF0C[-1,1]\
+      \ \u7684\u8F93\u5165\uFF0C\u80FD\u591F\u4EA7\u751F [-pi,pi] \u7684\u76F8\u4F4D\
+      \u504F\u79FB\uFF08\u56E0\u6B64\u4F1A\u662F\u6574\u4E2A\u5706\uFF09\n- \u5F53\
+      \ n = 4 \u65F6\uFF0C[-1,1] \u7684\u8F93\u5165\uFF0C\u80FD\u591F\u4EA7\u751F\
+      \ [-pi/2,pi/2] \u7684\u76F8\u4F4D\u504F\u79FB\uFF08\u56E0\u6B64\u662F\u53F3\u534A\
+      \u8FB9\u5706\uFF09\n- \u5F53 n = 2 \u65F6\uFF0C[-1,1] \u7684\u8F93\u5165\uFF0C\
+      \u80FD\u591F\u4EA7\u751F [-pi/4,pi/4] \u7684\u76F8\u4F4D\u504F\u79FB\uFF08\u56E0\
+      \u6B64\u662F\u53F3\u8FB9 1/4 \u4E2A\u5706\uFF09\n\n\u6CE8\u610F\uFF1A\u4E0A\u9762\
+      \u51E0\u4E2A\u5757\u5B9E\u73B0\u7684\u529F\u80FD\u548C GNU Radio \u5B98\u65B9\
+      \u5C01\u88C5\u7684\u4E00\u4E2A Phase Mod \u4E00\u6837"
+    note: "\u8BF4\u660E"
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 364.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_sink_x_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: samp_rate
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '"PM-SELF"'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: complex
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 212.0]
+    rotation: 0
+    state: true
+- name: qtgui_sink_x_0_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: samp_rate
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '"PM-BLOCK"'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: complex
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1056, 500.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_phase_modulator_fc_0, '0', qtgui_sink_x_0_0, '0']
+- [analog_sig_source_x_0, '0', analog_phase_modulator_fc_0, '0']
+- [analog_sig_source_x_0, '0', blocks_multiply_const_vxx_0, '0']
+- [blocks_float_to_complex_0, '0', blocks_throttle2_0, '0']
+- [blocks_multiply_const_vxx_0, '0', blocks_transcendental_0, '0']
+- [blocks_multiply_const_vxx_0, '0', blocks_transcendental_0_0, '0']
+- [blocks_throttle2_0, '0', qtgui_sink_x_0, '0']
+- [blocks_transcendental_0, '0', blocks_float_to_complex_0, '1']
+- [blocks_transcendental_0_0, '0', blocks_float_to_complex_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.9.2
