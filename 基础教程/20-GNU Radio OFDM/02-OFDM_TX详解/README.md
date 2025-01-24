@@ -117,9 +117,9 @@ data_lsb[000048/000144]=[00 00 01 00 00 01 01 00 00 00 00 00 len| 00 00 00 00 00
 data_lsb[000096/000144]=[00 00 01 00 00 01 01 00 00 00 00 00 len| 01 00 00 00 00 01 00 00 00 00 01 00 idx| 01 01 00 01 01 01 01 00 crc| 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 |other]
 ```
 
-**注意：**
-1）<font color=#FF000> **为什么不直接点运行，而是在终端中运行？** </font>因为终端中运行看 log 方便，且不容易卡
-2）Embedded Python Block，<font color=#FF000> **每次输入有多个 header（48字节，注意是小端模式），通过 packet_len 标签进行标记，因此代码用了一些标签处理的知识** </font>： https://wiki.gnuradio.org/index.php?title=Python_Block_Tags
+**注意：**    
+1）<font color=#FF000> **为什么不直接点运行，而是在终端中运行？** </font>因为终端中运行看 log 方便，且不容易卡    
+2）Embedded Python Block，<font color=#FF000> **每次输入有多个 header（48字节，注意是小端模式），通过 packet_len 标签进行标记，因此代码用了一些标签处理的知识** </font>： https://wiki.gnuradio.org/index.php?title=Python_Block_Tags    
 
 </br>
 
@@ -274,9 +274,9 @@ Cyclic prefix is this superfluous bit of signal we add to the front of our preci
 
 ##### 3.1.3 如何体验
 
-1）**简单体验**：打开流程图，点击运行，可以看到 3.1.2 的效果图（包含 pre-OFDM 的 header 和 data 数据；经过 OFDM 的时域图和频域图）
-2）**深入理解 pre-OFDM 数据的形成体验**：参考 1.2，将 Embedded Python Block 的 debug 参数设置为 True，点击 RUN-> Generate，会在流程图的同级目录生成一个 tx_ofdm.py ，在终端中运行 python tx_ofdm.py 便可以看到对 header 的实时解析
-3）**深入理解 OFDM 子载波分配、同步字、导波、数据载波等细节的体验** **：参考 1.1.2，将 Embedded Python Block 的 debug 参数设置为 True，点击 RUN-> Generate，会在流程图的同级目录生成一个 tx_ofdm.py，在终端中运行 python tx_ofdm.py  便可以看到对 64 路子波的实时数据
+1）**简单体验**：打开流程图，点击运行，可以看到 3.1.2 的效果图（包含 pre-OFDM 的 header 和 data 数据；经过 OFDM 的时域图和频域图）    
+2）**深入理解 pre-OFDM 数据的形成体验**：参考 1.2，将 Embedded Python Block 的 debug 参数设置为 True，点击 RUN-> Generate，会在流程图的同级目录生成一个 tx_ofdm.py ，在终端中运行 python tx_ofdm.py 便可以看到对 header 的实时解析    
+3）**深入理解 OFDM 子载波分配、同步字、导波、数据载波等细节的体验**：参考 1.1.2，将 Embedded Python Block 的 debug 参数设置为 True，点击 RUN-> Generate，会在流程图的同级目录生成一个 tx_ofdm.py，在终端中运行 python tx_ofdm.py  便可以看到对 64 路子波的实时数据    
 
 </br>
 
