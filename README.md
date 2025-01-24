@@ -40,11 +40,11 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[26]. GNU Radio 系列教程（二六）—— 开胃菜，hackrf 发送 ble 广播包的简单 DEMO][JC26]    
 - [[27]. GNU Radio 系列教程（二七）—— 硬核，hackrf 发送 ble 广播包基于协议栈的详解][JC27]    
 - [[28]. GNU Radio 系列教程（二八）—— 用功率阈值侦测的例子介绍 GNU Radio 复杂交互页面设计][JC28]    
-- [[29]. GNU Radio 系列教程（二九）—— GNU Radio OFDM 正交频分复用收发 DEMO 演示][JC29]    
-- [[30]. GNU Radio 系列教程（三十）—— GNU Radio OFDM TX 详解][JC30]    
-- [[31]. GNU Radio 系列教程（三一）—— GNU Radio OFDM 基础调制之 AM-DSB][JC31]    
-- [[32]. GNU Radio 系列教程（三二）—— GNU Radio OFDM 基础调制之 AM-SSB][JC32]    
-- [[33]. GNU Radio 系列教程（三三）—— GNU Radio OFDM 基础调制之 PM][JC33]    
+- [[29]. GNU Radio 系列教程（二九）—— OFDM 正交频分复用收发 DEMO 演示][JC29]    
+- [[30]. GNU Radio 系列教程（三十）—— OFDM TX 详解][JC30]    
+- [[31]. GNU Radio 系列教程（三一）—— 基础调制之 AM-DSB][JC31]    
+- [[32]. GNU Radio 系列教程（三二）—— 基础调制之 AM-SSB][JC32]    
+- [[33]. GNU Radio 系列教程（三三）—— 基础调制之 PM][JC33]    
 
 
 </br>
