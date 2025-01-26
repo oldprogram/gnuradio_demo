@@ -1,0 +1,166 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: iq_image
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: iq_image
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 12.0]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '40000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [176, 12.0]
+    rotation: 0
+    state: enabled
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 140.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nfrom PIL import Image\nimport numpy as np\n\n\n\nclass\
+      \ blk(gr.sync_block):  # other base classes are basic_block, decim_block, interp_block\n\
+      \    \"\"\"Embedded Python Block example - a simple multiply const\"\"\"\n\n\
+      \    def _get_iq_image(self, input_file):\n        # \u8BFB\u53D6\u56FE\u7247\
+      \n        image = Image.open(input_file)\n\n        # \u5C06\u56FE\u7247\u8F6C\
+      \u6362\u4E3A\u7070\u5EA6\u56FE\n        gray_image = image.convert('L')\n\n\
+      \        # \u5C06\u7070\u5EA6\u56FE\u8F6C\u6362\u4E3Amxn\u7684\u6570\u7EC4\n\
+      \        image_array = np.array(gray_image)\n\n        # \u8BBE\u5B9A\u9608\u503C\
+      \uFF0C\u8FD9\u91CC\u53D6128\n        threshold = 128\n        # \u8FDB\u884C\
+      \u4E8C\u503C\u5316\u5904\u7406\n        binary_image_array = np.where(image_array\
+      \ > threshold, 255, 0).astype(np.uint8)\n\n        # \u5C06\u4E8C\u503C\u5316\
+      \u540E\u7684\u6570\u7EC4\u8F6C\u6362\u56DE\u56FE\u7247\n        binary_image\
+      \ = Image.fromarray(binary_image_array)\n\n        # \u4FDD\u5B58\u4E8C\u503C\
+      \u5316\u540E\u7684\u56FE\u7247\n        binary_image.save('binary_example.jpg')\n\
+      \n        # \u521B\u5EFA\u4E00\u4E2A\u7A7A\u5217\u8868\u7528\u4E8E\u5B58\u50A8\
+      \u5750\u6807\u590D\u6570\n        output = []\n\n        # \u904D\u5386\u4E8C\
+      \u503C\u5316\u56FE\u50CF\u6570\u7EC4\n        rows, columns = binary_image_array.shape\n\
+      \        normalization = max(rows, columns) \n        for i in range(rows):\n\
+      \            gnuradio_signal = 0\n            for j in range(columns):\n   \
+      \             if binary_image_array[i][j] == 0:\n                    # \u521B\
+      \u5EFA\u4E00\u4E2A\u590D\u6570\u8868\u793A\u5750\u6807\n                   \
+      \ gnuradio_iq = complex((j-columns/2)/normalization*2, -(i-rows/2)/normalization*2)\n\
+      \                    output.append(gnuradio_iq)\n            \n        print(f\"\
+      image:{rows}x{columns}\")\n        # print(output)\n\n        # \u5C06\u8F93\
+      \u51FA\u5217\u8868\u8F6C\u6362\u4E3ANumPy\u6570\u7EC4\n        output_np = np.array(output,\
+      \ dtype=np.complex64)\n        return output_np\n\n    def __init__(self, input_file=\"\
+      zjut.jpeg\"):  # only default arguments here\n        \"\"\"arguments to this\
+      \ function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='Embedded Python Block',   # will show\
+      \ up in GRC\n            in_sig=[],\n            out_sig=[np.complex64]\n  \
+      \      )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.iq_image\
+      \ = self._get_iq_image(input_file)\n        \n        self.iq_image_read_index\
+      \ = 0\n        self.iq_image_len = len(self.iq_image)\n       \n\n    def work(self,\
+      \ input_items, output_items):\n        o_len = len(output_items[0])\n      \
+      \  for i in range(o_len):\n            self.iq_image_read_index += 1\n     \
+      \       if self.iq_image_read_index >=  self.iq_image_len:\n               \
+      \ self.iq_image_read_index = 0\n                print(\"one loop\")\n      \
+      \          \n            output_items[0][i] = self.iq_image[self.iq_image_read_index]\n\
+      \        return len(output_items[0])\n        \n        \n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    input_file: '"zjut.jpeg"'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python Block', 'blk', [('input_file', "'zjut.jpeg'")], [],
+      [('0', 'complex', 1)], 'Embedded Python Block example - a simple multiply const',
+      [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [40, 140.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_sink_x_0
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: samp_rate
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: complex
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 108.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [blocks_throttle_0, '0', qtgui_sink_x_0, '0']
+- [epy_block_0, '0', blocks_throttle_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.11.0
