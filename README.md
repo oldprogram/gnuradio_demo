@@ -45,7 +45,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[31]. GNU Radio 系列教程（三一）—— 基础调制之 AM-DSB][JC31]    
 - [[32]. GNU Radio 系列教程（三二）—— 基础调制之 AM-SSB][JC32]    
 - [[33]. GNU Radio 系列教程（三三）—— 基础调制之 PM][JC33]    
-- [[33]. GNU Radio 系列教程（三四）—— 深入理解 PSK 与星座图（BPSK、QPSK、8PSK、16QAM）][JC34]    
+- [[34]. GNU Radio 系列教程（三四）—— 深入理解 PSK 与星座图（BPSK、QPSK、8PSK、16QAM）][JC34]    
 
 
 </br>
