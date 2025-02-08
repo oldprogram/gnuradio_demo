@@ -67,7 +67,7 @@ QAM16：
 
 ### 参考链接
 
-[[1]. GNU Radio —— QPSK_Mod_and_Demod]][#1]    
+[[1]. GNU Radio —— QPSK_Mod_and_Demod][#1]       
 [[2]. GNU Radio —— Simulation_example:_BPSK_Demodulation][#2]    
 [[3]. GNU Radio —— Guided_Tutorial_PSK_Demodulation&redirect][#3]    
 [[4]. BLOG —— PSK调制解调][#4]    
