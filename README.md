@@ -135,7 +135,6 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 
 [JCT1]:https://www.bilibili.com/video/BV1YS421R75M/?vd_source=84f94348691c2906fc1038d54989b7e0    
-[JCT2]:https://www.bilibili.com/video/BV1BvNveeEGC/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
 
 [JCX1]:https://www.bilibili.com/video/BV1eP4y1f7rc/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX2]:https://www.bilibili.com/video/BV1ft4y1L7Ve/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
@@ -144,7 +143,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX5]:https://www.bilibili.com/video/BV1Q84y1D7tZ/?spm_id_from=333.999.0.0
 [JCX6]:https://www.bilibili.com/video/BV1NJ4m1M7H3/?spm_id_from=333.1007.0.0&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX7]:https://www.bilibili.com/video/BV1sZWjerEP3/?vd_source=84f94348691c2906fc1038d54989b7e0
-[JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0
+[JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0    
+[JCK2]:https://www.bilibili.com/video/BV1BvNveeEGC/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
 [pbilibili]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/5aaaa5db7dfd1139793c6726f82cfc.png
