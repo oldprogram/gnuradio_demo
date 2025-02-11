@@ -1,0 +1,4 @@
+#!/bin/bash
+
+hackrf_clock -d 0000000000000000901868dc28424b8b -o 1
+hackrf_clock -d 0000000000000000874461dc227c3f57  -i 
