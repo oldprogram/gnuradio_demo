@@ -114,3 +114,24 @@ ll_datas_normalization_sample = np.divide(ll_datas_sample, 256)
 with open("normalization_sample.bin", "wb") as f:
     for data in ll_datas_normalization_sample:
         f.write(struct.pack("f", data))  # 将浮点数打包成4字节的二进制数据
+
+# 打开文件准备写入
+# hackrf_transfer -t normalization_sample_hackrf.iq -f 2402000000 -s 4000000 -R -x 47
+# https://hackrf.readthedocs.io/en/latest/hackrf_tools.html
+with open("normalization_sample_hackrf.iq", "wb") as f:
+    # 遍历数据，每两个浮动数（I, Q）一组
+    for i in range(0, len(ll_datas_normalization_sample), 2):
+        I = ll_datas_normalization_sample[i]   # 假设 I 是当前数据
+        Q = ll_datas_normalization_sample[i+1] if i+1 < len(ll_datas_normalization_sample) else 0.0  # 假设 Q 是下一个数据
+
+        # 将归一化的浮动数（[-1, 1] 范围）转换为8位整数（[-128, 127] 范围）
+        I_int = int(I * 127)  # 将 I 浮动数转换为8位整数
+        Q_int = int(Q * 127)  # 将 Q 浮动数转换为8位整数
+
+        # 保证 I 和 Q 在有效的8位范围内
+        I_int = max(-128, min(127, I_int))
+        Q_int = max(-128, min(127, Q_int))
+
+        # 交替写入 I 和 Q，hackrf_transfer 期望数据是 interleaved 的
+        f.write(struct.pack("b", I_int))  # 写入 I 分量（8位整数）
+        f.write(struct.pack("b", Q_int))  # 写入 Q 分量（8位整数）
