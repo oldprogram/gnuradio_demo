@@ -73,6 +73,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 - [[1]. GNU Radio 块介绍（一）－－ GNU Radio 的绝对值(Abs)块][JCK1]    
 - [[2]. GNU Radio 块介绍（二）－－ 利用眼图理论调优 hackrf 大流量视频收发系统实战][JCK2]    
+- [[3]. GNU Radio 块介绍（三）－－ 使用 ask bpsk qpsk qam16 模拟收发计算误码率][JCK3]    
 
 </br>
 
@@ -145,6 +146,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX7]:https://www.bilibili.com/video/BV1sZWjerEP3/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0    
 [JCK2]:https://www.bilibili.com/video/BV1BvNveeEGC/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
+[JCK3]:https://www.bilibili.com/video/BV1My9wYFEJP/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
 [pbilibili]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/5aaaa5db7dfd1139793c6726f82cfc.png
