@@ -12,7 +12,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: ask_bpsk_qpsk_qam16
+    id: ask_bpsk_qpsk_qam16_v2
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -23,7 +23,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: ask_bpsk_qpsk_qam16
+    title: ask_bpsk_qpsk_qam16_v2
     window_size: 2000, 2000
   states:
     bus_sink: false
@@ -43,14 +43,14 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [173, 11]
+    coordinate: [192, 12.0]
     rotation: 0
     state: enabled
 - name: constel
   id: variable
   parameters:
     comment: ''
-    value: constel_ask
+    value: constel_qam16
   states:
     bus_sink: false
     bus_source: false
@@ -254,7 +254,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [312, 11]
+    coordinate: [336, 12.0]
     rotation: 0
     state: enabled
 - name: sps
@@ -266,7 +266,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [239, 11]
+    coordinate: [264, 12.0]
     rotation: 0
     state: enabled
 - name: analog_random_source_x_0
@@ -342,6 +342,24 @@ blocks:
     coordinate: [744, 752.0]
     rotation: 0
     state: enabled
+- name: blocks_multiply_const_vxx_0
+  id: blocks_multiply_const_vxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    const: 1/(random_data_num*8)*100
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1392, 812.0]
+    rotation: 0
+    state: enabled
 - name: blocks_null_source_0_0
   id: blocks_null_source
   parameters:
@@ -377,7 +395,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 232.0]
+    coordinate: [448, 232.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -396,7 +414,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 260.0]
+    coordinate: [664, 260.0]
     rotation: 0
     state: enabled
 - name: blocks_unpack_k_bits_bb_0
@@ -412,7 +430,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [920, 732.0]
+    coordinate: [904, 732.0]
     rotation: 0
     state: enabled
 - name: blocks_unpack_k_bits_bb_0_0
@@ -523,7 +541,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [920, 684.0]
+    coordinate: [904, 684.0]
     rotation: 180
     state: enabled
 - name: digital_pfb_clock_sync_xxx_0
@@ -556,46 +574,144 @@ blocks:
       \ GRC will instantiate the first class it finds\nto get ports and parameters\
       \ of your block. The arguments to __init__  will\nbe the parameters. All of\
       \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
-      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
-      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, preamble=[],\
-      \ random_data_num = 0, gap_num = 0):  # only default arguments here\n      \
-      \  \"\"\"arguments to this function show up as parameters in GRC\"\"\"\n   \
-      \     gr.sync_block.__init__(\n            self,\n            name='Embedded\
-      \ Python Block',   # will show up in GRC\n            in_sig=[np.int8,np.int8],\n\
-      \            out_sig=[np.int8,np.int8,np.float32]\n        )\n        # if an\
-      \ attribute with the same name as a parameter is found,\n        # a callback\
-      \ is registered (properties work, too).\n        self.preamble = preamble\n\
-      \        self.random_data_num = random_data_num\n        self.gap_num = gap_num\n\
-      \        self.total_num = 0\n        self.total_error_num = 0\n\n    def work(self,\
-      \ input_items, output_items):\n        \"\"\"example: multiply with constant\"\
-      \"\"\n        output_items[0][:] = input_items[0]\n        output_items[1][:]\
-      \ = input_items[1]\n        \n        not_same_num = 0\n        total_num =\
-      \ len(output_items[0])\n        for i in range(total_num):\n            if output_items[0][i]\
-      \ != output_items[1][i]:\n                not_same_num = not_same_num + 1\n\
-      \        \n        self.total_num = self.total_num + total_num\n        self.total_error_num\
-      \ = self.total_error_num + not_same_num\n        #print(\"this time error rate:\
-      \ %.2f%%\"  %(not_same_num*100/total_num))\n        \n        output_items[2][0]\
-      \ = not_same_num*100/total_num\n        for i in range(total_num):\n       \
-      \     output_items[2][i] = output_items[2][0]\n            \n        return\
-      \ len(output_items[0])\n"
+      from gnuradio import gr\nimport struct\n\n\nclass blk(gr.sync_block):  # other\
+      \ base classes are basic_block, decim_block, interp_block\n    \"\"\"Embedded\
+      \ Python Block example - a simple multiply const\"\"\"\n\n    def __init__(self,\
+      \ preamble=[], random_data_num = 0, gap_num = 0, risks = 0.3, debug = False):\
+      \  # only default arguments here\n        \"\"\"arguments to this function show\
+      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='Embedded Python Block',   # will show up in GRC\n\
+      \            in_sig=[np.int8,np.int8],\n            out_sig=[np.int8,np.int8,np.float32]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.preamble\
+      \ = preamble\n        self.preamble_bits = []\n        self.preamble_bits_num\
+      \ = 0\n        self.random_data_num = random_data_num\n        self.gap_num\
+      \ = gap_num\n        self.total_num = 0\n        self.total_error_num = 0\n\
+      \        self.datas_0 = []\n        self.datas_1 = []\n        self.datas_one_frame_num\
+      \ = (len(preamble)+random_data_num+gap_num)*8\n        self.debug = debug\n\
+      \        self.risks = risks # \u6BD4\u8F83\u5934\u90E8\u4FE1\u606F\u65F6\uFF0C\
+      \u51FA\u9519\u5BB9\u5FCD\u5EA6(\u5934\u90E8\u9700\u8981\u5BB9\u9519\u7387\uFF0C\
+      \u4E0D\u7136\u5728\u6709\u5E72\u6270\u65F6\uFF0C\u5934\u90E8\u90FD\u65E0\u6CD5\
+      \u51C6\u786E\u5B9A\u4F4D\u4E86\uFF09\n        \n        for byte in self.preamble:\n\
+      \            for i in range(7, -1, -1):\n                bit = (byte >> i) &\
+      \ 1\n                self.preamble_bits.append(float(bit))\n        self.preamble_bits_num\
+      \ = len(self.preamble_bits)\n              \n\n    def find_preamble(self, datas):\n\
+      \        # find preamble\n        total_num = len(datas)\n        for i in range(total_num\
+      \ - self.preamble_bits_num + 1):\n            ok = 1\n            error_num\
+      \ = 0\n            for j in range(self.preamble_bits_num):\n               \
+      \ if datas[i+j] != self.preamble_bits[j]:\n                    error_num = error_num\
+      \ + 1\n                    if error_num >=  self.preamble_bits_num*self.risks:\n\
+      \                        ok = 0\n                        break\n           \
+      \ \n            if ok == 1:\n                return i\n        return -1\n \
+      \               \n    def cal_error(self,error_array):\n        total0_num =\
+      \ len(self.datas_0)\n        total1_num = len(self.datas_1)\n        \n    \
+      \    # find preamble\n        index_0 = self.find_preamble(self.datas_0)\n \
+      \       index_1 = self.find_preamble(self.datas_1)\n        \n        # print(index_0,index_1,'\\\
+      n')\n                \n        # have at least one frame\n        if index_0\
+      \ != -1 and index_1 != -1:\n            if index_0 + self.datas_one_frame_num\
+      \ <= total0_num and index_1 + self.datas_one_frame_num <= total1_num:\n    \
+      \            error_num = 0\n                for i in range(self.random_data_num*8):\n\
+      \                    if self.datas_0[index_0+self.preamble_bits_num+i] != self.datas_1[index_1+self.preamble_bits_num+i]:\n\
+      \                        error_num = error_num + 1\n                \n     \
+      \           if self.debug == True:\n                    print('[%d/%d][%d/%d]\
+      \ error/rand_datas = %d/%d (bits)' %(index_0, total0_num, index_1, total1_num,\
+      \ error_num,self.random_data_num*8))\n                error_array.append(error_num)\n\
+      \                \n                # cut the one frame\n                self.datas_0\
+      \ = self.datas_0[index_0+self.datas_one_frame_num:]\n                self.datas_1\
+      \ = self.datas_1[index_1+self.datas_one_frame_num:]\n                \n    \
+      \            self.cal_error(error_array)\n            \n    def work(self, input_items,\
+      \ output_items):\n        \"\"\"example: multiply with constant\"\"\"\n    \
+      \    output_items[0][:] = input_items[0]\n        output_items[1][:] = input_items[1]\n\
+      \        \n        # buffer the input datas\n        self.datas_0 = np.append(self.datas_0,input_items[0])\n\
+      \        self.datas_1 = np.append(self.datas_1,input_items[1])\n        \n \
+      \       error_array = []\n        error_average = 0\n        self.cal_error(error_array)\n\
+      \        if len(error_array) != 0:\n            error_average = int(sum(error_array)\
+      \ / len(error_array))\n            if self.debug == True:\n                print(error_array\
+      \ ,'->', error_average)\n        \n        for i in range(len(input_items[0])):\n\
+      \            output_items[2][i] = error_average\n        \n        return len(output_items[0])\n"
     affinity: ''
     alias: ''
     comment: ''
+    debug: 'False'
     gap_num: gap_num
     maxoutbuf: '0'
     minoutbuf: '0'
     preamble: preamble
     random_data_num: random_data_num
+    risks: '0.3'
   states:
     _io_cache: ('Embedded Python Block', 'blk', [('preamble', '[]'), ('random_data_num',
-      '0'), ('gap_num', '0')], [('0', 'byte', 1), ('1', 'byte', 1)], [('0', 'byte',
-      1), ('1', 'byte', 1), ('2', 'float', 1)], 'Embedded Python Block example - a
-      simple multiply const', ['gap_num', 'preamble', 'random_data_num'])
+      '0'), ('gap_num', '0'), ('risks', '0.3'), ('debug', 'False')], [('0', 'byte',
+      1), ('1', 'byte', 1)], [('0', 'byte', 1), ('1', 'byte', 1), ('2', 'float', 1)],
+      'Embedded Python Block example - a simple multiply const', ['debug', 'gap_num',
+      'preamble', 'random_data_num', 'risks'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1128, 720.0]
+    coordinate: [1112, 716.0]
+    rotation: 0
+    state: enabled
+- name: error_bits
+  id: qtgui_number_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    autoscale: 'False'
+    avg: '0'
+    color1: ("blue", "red")
+    color10: ("black", "black")
+    color2: ("black", "black")
+    color3: ("black", "black")
+    color4: ("black", "black")
+    color5: ("black", "black")
+    color6: ("black", "black")
+    color7: ("black", "black")
+    color8: ("black", "black")
+    color9: ("black", "black")
+    comment: ''
+    factor1: '1'
+    factor10: '1'
+    factor2: '1'
+    factor3: '1'
+    factor4: '1'
+    factor5: '1'
+    factor6: '1'
+    factor7: '1'
+    factor8: '1'
+    factor9: '1'
+    graph_type: qtgui.NUM_GRAPH_HORIZ
+    gui_hint: ''
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    max: random_data_num*8
+    min: '0'
+    name: '"error_bits"'
+    nconnections: '1'
+    type: float
+    unit1: ''
+    unit10: ''
+    unit2: ''
+    unit3: ''
+    unit4: ''
+    unit5: ''
+    unit6: ''
+    unit7: ''
+    unit8: ''
+    unit9: ''
+    update_time: '0.01'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1552, 980.0]
     rotation: 0
     state: enabled
 - name: error_rate_show
@@ -658,7 +774,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1552, 804.0]
+    coordinate: [1552, 868.0]
     rotation: 0
     state: enabled
 - name: import_cmath
@@ -671,7 +787,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [488, 11]
+    coordinate: [560, 12.0]
     rotation: 0
     state: enabled
 - name: import_math
@@ -684,7 +800,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [400, 11]
+    coordinate: [432, 12.0]
     rotation: 0
     state: enabled
 - name: note_auto
@@ -996,7 +1112,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 260.0]
+    coordinate: [864, 260.0]
     rotation: 0
     state: enabled
 - name: virtual_source_0
@@ -1018,6 +1134,7 @@ connections:
 - [blocks_char_to_float_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_char_to_float_0_0_0, '0', qtgui_time_sink_x_0, '1']
 - [blocks_delay_0, '0', epy_block_0, '1']
+- [blocks_multiply_const_vxx_0, '0', error_rate_show, '0']
 - [blocks_null_source_0_0, '0', blocks_stream_mux_0_0, '2']
 - [blocks_stream_mux_0_0, '0', blocks_throttle_0, '0']
 - [blocks_throttle_0, '0', virtual_sink_0, '0']
@@ -1033,7 +1150,8 @@ connections:
 - [digital_pfb_clock_sync_xxx_0, '0', qtgui_const_sink_x_1, '0']
 - [epy_block_0, '0', blocks_char_to_float_0, '0']
 - [epy_block_0, '1', blocks_char_to_float_0_0_0, '0']
-- [epy_block_0, '2', error_rate_show, '0']
+- [epy_block_0, '2', blocks_multiply_const_vxx_0, '0']
+- [epy_block_0, '2', error_bits, '0']
 - [virtual_source_0, '0', blocks_unpack_k_bits_bb_0_0, '0']
 - [virtual_source_0, '0', digital_constellation_modulator_0, '0']
 
