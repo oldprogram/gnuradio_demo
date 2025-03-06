@@ -39,7 +39,7 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 
 </br>
 
-### 二、动态发送 BLE 广播包
+### [二、动态发送 BLE 广播包][#11]
 
 上节我们将 BLE 广播包接收代码进行全部整理，本节我们将 BLE 广播包发送代码进行全部整理，实现每隔 1S 更换广播内容，并从零开始合成 BLE 广播 IQ 数据，然后调用 SDR 发送，实现 BLE 动态广播能力：
 
@@ -49,13 +49,26 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 
 </br>
 
-### 三、基于 PlutoSDR 实现 BLE 广播包的收发一体能力
+### [三、基于 PlutoSDR 实现 BLE 广播包的收发一体能力][#12]
 
 本节将前两节的知识结合起来，借助具有全双工双收双发能力的 PlutoSDR 实现 BLE 广播包收发一体能力：
 
 ![][p9]    
 
 具体的教程细节见：[app/app_sdr_ble_adv_tx_rx][#10]    
+
+</br>
+
+### 四、基于 PlutoSDR 的 BLE 广播包的收发实现接入涂鸦智能 APP
+
+本节在上一节的基础上更进一步：通过叠加 TuyaOS BeaconMesh 上层应用协议，最终实现从电磁波开始，到全双工蓝牙广播收发接入涂鸦智能，变成一个物联网 BeaconMesh 灯节点：
+
+![][p10]    
+
+具体的教程细节见：[app/app_sdr_tuya_beacon_node][#13]    
+
+
+</br>
 
 [#1]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.1387.collection.video_card.click    
 [#2]:https://www.bilibili.com/video/BV18h4y1Y7mf/?spm_id_from=333.1387.collection.video_card.click    
@@ -67,6 +80,10 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 [#8]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_tx    
 [#9]:https://www.bilibili.com/video/BV1bARMYLEGX/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [#10]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_tx_rx    
+[#11]:https://www.bilibili.com/video/BV1mNRhYGE5n/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
+[#12]:https://www.bilibili.com/video/BV1bDQ5YdEMC/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[#13]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_tuya_beacon_node    
+
 
 [p1]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/history_ble_video.png     
 [p2]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video1.png    
@@ -77,7 +94,8 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 [p7]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/jia_gou.png    
 [p8]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_ADV__jia_gou.png    
 [p9]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_TX_RX_jia_gou.png     
-
+[p10]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_TX_RX_TO_TUYA_jia_gou.png    
+  
 
 
 
