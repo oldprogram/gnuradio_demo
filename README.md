@@ -69,11 +69,22 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 </br>
 
-#### 基础块教程：
+#### 附加教程：
 
-- [[1]. GNU Radio 块介绍（一）－－ GNU Radio 的绝对值(Abs)块][JCK1]    
-- [[2]. GNU Radio 块介绍（二）－－ 利用眼图理论调优 hackrf 大流量视频收发系统实战][JCK2]    
-- [[3]. GNU Radio 块介绍（三）－－ 使用 ask bpsk qpsk qam16 模拟收发计算误码率][JCK3]    
+- [[1]. GNU Radio 附加教程（一）－－ GNU Radio 的绝对值(Abs)块][JCK1]    
+- [[2]. GNU Radio 附加教程（二）－－ 利用眼图理论调优 hackrf 大流量视频收发系统实战][JCK2]    
+- [[3]. GNU Radio 附加教程（三）－－ 使用 ask bpsk qpsk qam16 模拟收发计算误码率][JCK3]    
+- [[4]. GNU Radio 附加教程（四）－－ 为什么高阶 GNU Radio 用户需要使用 docker？][JCK4]    
+
+</br>
+
+#### 蓝牙专项教程：
+
+- [[1]. 蓝牙收教程（一） —— 利用 GNU Radio + HackRF + WireShark 做蓝牙抓包器（超低成本）][JCX3]
+- [[2]. 蓝牙收教程（二） —— 利用 GNU Radio + HackRF 手把手深入了解蓝牙协议栈（从电磁波 -> 01数据流 -> 蓝牙数据包）][JCX4]
+- [[3]. 蓝牙收教程（三） —— 利用 GNU Radio + LimeSDR+ WireShark 做蓝牙抓包器（上上个视频使用 HackRF）][JCX5]
+- [[4]. 蓝牙发教程（一）—— 开胃菜，hackrf 发送 ble 广播包的简单 DEMO][JC26]    
+- [[5]. 蓝牙发教程（二）—— 硬核，hackrf 发送 ble 广播包基于协议栈的详解][JC27]    
 
 </br>
 
@@ -147,6 +158,9 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0    
 [JCK2]:https://www.bilibili.com/video/BV1BvNveeEGC/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
 [JCK3]:https://www.bilibili.com/video/BV1My9wYFEJP/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4
+[JCK4]:https://www.bilibili.com/video/BV1c89JYYEcP/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
+
+
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
 [pbilibili]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/5aaaa5db7dfd1139793c6726f82cfc.png
