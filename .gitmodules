@@ -4,3 +4,6 @@
 [submodule "综合教程/03- 利用 GNU Radio + HackRF + WireShark 做蓝牙抓包器（超低成本)/sdr4iot-ble-rx"]
 	path = 综合教程/03- 利用 GNU Radio + HackRF + WireShark 做蓝牙抓包器（超低成本)/sdr4iot-ble-rx
 	url = git@github.com:oldprogram/sdr4iot-ble-rx.git
+[submodule "蓝牙专项/auto_test_tool"]
+	path = 蓝牙专项/auto_test_tool
+	url = git@github.com:nbtool/auto_test_tool.git
