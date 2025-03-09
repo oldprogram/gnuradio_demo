@@ -86,7 +86,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[4]. 蓝牙发教程（一）—— 开胃菜，hackrf 发送 ble 广播包的简单 DEMO][JC26]    
 - [[5]. 蓝牙发教程（二）—— 硬核，hackrf 发送 ble 广播包基于协议栈的详解][JC27]    
 - [[6]. 蓝牙收发教程（一）—— 基于 SDR 实现蓝牙协议栈专题开题之作][BLE01]    
-- [[7]. 蓝牙收发教程（二）BLE+SDR 的飞跃：手搓广播调制，实现秒级动态广播][BLE02]    
+- [[7]. 蓝牙收发教程（二）—— BLE+SDR 的飞跃：手搓广播调制，实现秒级动态广播][BLE02]    
 
 </br>
 
