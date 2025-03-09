@@ -13,7 +13,7 @@
 
 </br>
 
-### 一、开题之作
+### [一、开题之作][#9]   
 
 为了方便后续代码构建，我将之前零零散散的关于 BLE+SDR 的相关工程代码，全部合并到一个独立仓库中 [auto_test_tool][#6]。
 
@@ -37,6 +37,16 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 
 具体的教程细节见：[app/app_sdr_ble_adv_rx][#7]
 
+</br>
+
+### 二、动态发送 BLE 广播包
+
+上节我们将 BLE 广播包接收代码进行全部整理，本节我们将 BLE 广播包发送代码进行全部整理，实现每隔 1S 更换广播内容，并从零开始合成 BLE 广播 IQ 数据，然后调用 SDR 发送，实现 BLE 动态广播能力：
+
+![][p8]
+
+具体的教程细节见：[app/app_sdr_ble_adv_tx][#8]
+
 
 [#1]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.1387.collection.video_card.click    
 [#2]:https://www.bilibili.com/video/BV18h4y1Y7mf/?spm_id_from=333.1387.collection.video_card.click    
@@ -45,6 +55,8 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 [#5]:https://www.bilibili.com/video/BV1WWv1emEvA/?spm_id_from=333.1387.collection.video_card.click    
 [#6]:https://github.com/nbtool/auto_test_tool    
 [#7]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_rx    
+[#8]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_tx    
+[#9]:https://www.bilibili.com/video/BV1bARMYLEGX/?vd_source=84f94348691c2906fc1038d54989b7e0    
 
 [p1]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/history_ble_video.png     
 [p2]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video1.png    
@@ -53,6 +65,8 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 [p5]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video4.png
 [p6]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video5.png   
 [p7]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/jia_gou.png    
+[p8]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_ADV__jia_gou.png
+
 
 
  
