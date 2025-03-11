@@ -47,6 +47,15 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 
 具体的教程细节见：[app/app_sdr_ble_adv_tx][#8]
 
+</br>
+
+### 三、基于 PlutoSDR 实现 BLE 广播包的收发一体能力
+
+本节将前两节的知识结合起来，借助具有全双工双收双发能力的 PlutoSDR 实现 BLE 广播包收发一体能力：
+
+![][p9]    
+
+具体的教程细节见：[app/app_sdr_ble_adv_tx_rx][#10]    
 
 [#1]:https://www.bilibili.com/video/BV1ta4y157VV/?spm_id_from=333.1387.collection.video_card.click    
 [#2]:https://www.bilibili.com/video/BV18h4y1Y7mf/?spm_id_from=333.1387.collection.video_card.click    
@@ -57,6 +66,7 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 [#7]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_rx    
 [#8]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_tx    
 [#9]:https://www.bilibili.com/video/BV1bARMYLEGX/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[#10]:https://github.com/nbtool/auto_test_tool/tree/master/app/app_sdr_ble_adv_tx_rx    
 
 [p1]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/history_ble_video.png     
 [p2]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video1.png    
@@ -65,7 +75,9 @@ OK，开题相关的铺垫到此结束，那么硬核的东西也不能少：
 [p5]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video4.png
 [p6]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/video5.png   
 [p7]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/jia_gou.png    
-[p8]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_ADV__jia_gou.png
+[p8]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_ADV__jia_gou.png    
+[p9]:https://tuchuang.beautifulzzzz.com:3000/?path=202503/BLE_TX_RX_jia_gou.png     
+
 
 
 

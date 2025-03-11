@@ -87,6 +87,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[5]. 蓝牙发教程（二）—— 硬核，hackrf 发送 ble 广播包基于协议栈的详解][JC27]    
 - [[6]. 蓝牙收发教程（一）—— 基于 SDR 实现蓝牙协议栈专题开题之作][BLE01]    
 - [[7]. 蓝牙收发教程（二）—— BLE+SDR 的飞跃：手搓广播调制，实现秒级动态广播][BLE02]    
+- [[8]. 蓝牙收发教程（三）—— PlutoSDR：从物理层干到应用层，实现蓝牙广播收发一体][BLE03]    
 
 </br>
 
@@ -164,6 +165,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 [BLE01]:https://www.bilibili.com/video/BV1bARMYLEGX/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4
 [BLE02]:https://www.bilibili.com/video/BV1mNRhYGE5n/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4
+[BLE03]:https://www.bilibili.com/video/BV1bDQ5YdEMC/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4
 
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
