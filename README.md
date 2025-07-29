@@ -204,8 +204,11 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX7_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/07-SDR GPS/01-hackrf GPS 欺诈/readme.md
 
 [JCK2_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/02-眼图/README.md
-[JCK4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/04-为什么高阶 GNU Radio 用户需要使用 Docker/README.md
+[JCK4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/04-为什么高阶 GNU Radio 用户需要使用 Docker/readme.md
 
-[JCX3_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/蓝牙专项/readme.md
+[BLE01_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/蓝牙专项/readme.md
+
+[SCROLLING_MSG1]:<顶满，双 hackrf 蓝牙广播收发实现接入涂鸦智能[跪了]><https://www.bilibili.com/opus/968720063941050403?spm_id_from=333.999.0.0>
+[SCROLLING_MSG2]:<火火火，用 HackRF 实施 GPS 欺诈><https://www.bilibili.com/video/BV1sZWjerEP3/?spm_id_from=333.999.list.card_archive.click>
 -->
 
