@@ -60,6 +60,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[6]. SDR 教程实战（六） —— 利用两个 hackrf 实现大文件（视频）高速传输][JCX6]     
 - [[7]. SDR 教程实战（七） —— 用 HackRF 实施 GPS 欺诈][JCX7]     
 - [[8]. SDR 教程实战（八） —— 基于两个 hackrf 实现 DVBT 的高清视频收发][JCX8]     
+- [[9]. SDR 教程实战（九） —— 基于两个 hackrf 实现连续波测速雷达][JCX9]     
 
 
 </br>
@@ -161,6 +162,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX6]:https://www.bilibili.com/video/BV1NJ4m1M7H3/?spm_id_from=333.1007.0.0&vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX7]:https://www.bilibili.com/video/BV1sZWjerEP3/?vd_source=84f94348691c2906fc1038d54989b7e0
 [JCX8]:https://www.bilibili.com/video/BV1B184zaEeN/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[JCX9]:https://www.bilibili.com/video/BV1dhtBzXEjJ/?vd_source=84f94348691c2906fc1038d54989b7e0     
 [JCK1]:https://www.bilibili.com/video/BV14K411Y7Jb/?spm_id_from=333.788&vd_source=84f94348691c2906fc1038d54989b7e0    
 [JCK2]:https://www.bilibili.com/video/BV1BvNveeEGC/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
 [JCK3]:https://www.bilibili.com/video/BV1My9wYFEJP/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4
@@ -202,6 +204,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCX4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/04- 利用 GNU Radio 和 HackRF 手把手深入了解蓝牙协议栈（从电磁波 to 01数据流 to 蓝牙数据包） /README.md
 [JCX5_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/05- 利用 GNU Radio 和 LimeSDR 和 WireShark 做蓝牙抓包器（上上个视频使用 HackRF）/README.md
 [JCX7_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/07-SDR GPS/01-hackrf GPS 欺诈/readme.md
+[JCX9_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/09-基于两个 hackrf 实现连续波测速雷达/readme.md    
 
 [JCK2_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/02-眼图/README.md
 [JCK4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/04-为什么高阶 GNU Radio 用户需要使用 Docker/readme.md
