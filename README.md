@@ -94,6 +94,14 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 
 </br>
 
+#### B210 专项教程：
+
+- [第一集：什么是 SDR？][B21001]
+- [第二集：USRP 硬件概览][B21002]
+- [第三集：环境搭建与驱动安装][B21003]
+
+</br>
+
 #### 奇技淫巧：
 
 - [[1]. 奇技淫巧 —— 在频谱、瀑流中、IQ 坐标上播放图片][QJYQ1]    
@@ -173,6 +181,10 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [BLE03]:https://www.bilibili.com/video/BV1bDQ5YdEMC/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4
 [BLE04]:https://www.bilibili.com/video/BV1qNXKYEE8t/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
+[B21001]:https://www.bilibili.com/video/BV1WMhCzREyZ/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[B21002]:https://www.bilibili.com/video/BV15BaHzUEVo/?vd_source=84f94348691c2906fc1038d54989b7e0    
+[B21003]:https://www.bilibili.com/video/BV1GjarzvEJH/?vd_source=84f94348691c2906fc1038d54989b7e0    
+
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
 [pbilibili]:https://tuchuang.beautifulzzzz.com:3000/?path=/e3/5aaaa5db7dfd1139793c6726f82cfc.png
@@ -210,6 +222,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCK4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/04-为什么高阶 GNU Radio 用户需要使用 Docker/readme.md
 
 [BLE01_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/蓝牙专项/readme.md
+
+[B21003_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/03-环境搭建与驱动安装/readme.md    
 
 [SCROLLING_MSG1]:<顶满，双 hackrf 蓝牙广播收发实现接入涂鸦智能[跪了]><https://www.bilibili.com/opus/968720063941050403?spm_id_from=333.999.0.0>
 [SCROLLING_MSG2]:<火火火，用 HackRF 实施 GPS 欺诈><https://www.bilibili.com/video/BV1sZWjerEP3/?spm_id_from=333.999.list.card_archive.click>
