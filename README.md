@@ -102,6 +102,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [第四集：天线与无线信号的侦听][B21004]    
 - [第五集：信号全频带干扰][B21005]       
 - [第六集：与 GNU Radio 的初次接触][B21006]    
+- [第七集：实现一个带有滤波功能的 FM 收音机][B21007]    
 
 </br>
 
