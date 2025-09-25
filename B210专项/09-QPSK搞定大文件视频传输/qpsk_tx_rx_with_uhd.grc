@@ -138,8 +138,8 @@ blocks:
 - name: one_frame_data
   id: variable
   parameters:
-    comment: len(preamble)+2*repet+(payload_data_len)*repet
-    value: len(preamble)+2*repet+(payload_data_len)*repet
+    comment: len(preamble)+sn(4)*repet+(payload_data_len)*repet
+    value: len(preamble)+4*repet+(payload_data_len)*repet
   states:
     bus_sink: false
     bus_source: false
@@ -163,7 +163,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '38'
+    value: '36'
   states:
     bus_sink: false
     bus_source: false
@@ -378,6 +378,27 @@ blocks:
     coordinate: [1736, 544.0]
     rotation: 0
     state: enabled
+- name: channels_channel_model_0
+  id: channels_channel_model
+  parameters:
+    affinity: ''
+    alias: ''
+    block_tags: 'False'
+    comment: ''
+    epsilon: '1.0'
+    freq_offset: '0.0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_voltage: '0.0'
+    seed: '0'
+    taps: 1.0 + 1.0j
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 372.0]
+    rotation: 0
+    state: disabled
 - name: digital_constellation_decoder_cb_0
   id: digital_constellation_decoder_cb
   parameters:
@@ -521,7 +542,7 @@ blocks:
       from gnuradio import gr\nimport struct\n\n\nclass blk_cal_error(gr.sync_block):\
       \  # other base classes are basic_block, decim_block, interp_block\n    \"\"\
       \"Embedded Python Block example - a simple multiply const\"\"\"\n\n    def __init__(self,\
-      \ preamble=[], payload_data_len = 0, risks = 0.3, repet = 3, file_name = 'output.wav',\
+      \ preamble=[], payload_data_len = 36, risks = 0.3, repet = 3, file_name = 'output.wav',\
       \ debug = False):  # only default arguments here\n        \"\"\"arguments to\
       \ this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
       \            self,\n            name='cal_error',   # will show up in GRC\n\
@@ -531,7 +552,7 @@ blocks:
       \ = preamble\n        self.preamble_bits = []\n        self.preamble_bits_num\
       \ = 0\n        self.payload_data_len = payload_data_len\n        self.total_num\
       \ = 0\n        self.total_error_num = 0\n        self.datas_0 = []\n       \
-      \ self.datas_1 = []\n        self.repet = repet\n        self.header_len = 2\n\
+      \ self.datas_1 = []\n        self.repet = repet\n        self.header_len = 4\n\
       \        self.datas_one_frame_num = (len(preamble)+(self.header_len+payload_data_len)*repet)*8\n\
       \        self.debug = debug\n        self.risks = risks # \u6BD4\u8F83\u5934\
       \u90E8\u4FE1\u606F\u65F6\uFF0C\u51FA\u9519\u5BB9\u5FCD\u5EA6(\u5934\u90E8\u9700\
@@ -574,7 +595,7 @@ blocks:
       \                        byte_value <<= 1\n                        byte_value\
       \ |= (int_datas[i+j] & 0xFF) \n                if byte_value == 0 and self.zero_wait\
       \ == 0:\n                    self.zero_wait = 1\n                elif byte_value\
-      \ == 0 and self.zero_wait == 1:\n                    byte_data.append(0x00)\n\
+      \ == 0 and self.zero_wait == 1:\n                    # byte_data.append(0x00)\n\
       \                    self.zero_wait = 0\n                elif byte_value !=\
       \ 0 and self.zero_wait == 0:\n                    byte_data.append(byte_value)\n\
       \                elif byte_value != 0 and self.zero_wait == 1:\n           \
@@ -602,7 +623,7 @@ blocks:
       \            self.file_info_len = int(file_info_len_bits, 2)\n             \
       \       self.file_info_crc = int(file_info_crc_bits, 2)\n                  \
       \  \n                \n                if (self.file_start != 0 and index0_sn\
-      \ == self.file_start + 1) or (index0_sn > 2 and self.file_info_len != 0):\n\
+      \ == self.file_start + 1) or (index0_sn > 10 and self.file_info_len != 0):\n\
       \                    # \u6709\u4E9B\u60C5\u51B5\u4E0B\u4F1A\u65AD\u5C42\u4E22\
       \u51E0\u5305\uFF0C\u6B64\u65F6\u76F4\u63A5\u8865 0\uFF08\u8FD9\u6837\u63A5\u6536\
       \u6587\u4EF6\u81F3\u5C11\u770B\u8D77\u6765\u8FD8\u6B63\u5E38\u4E00\u70B9\uFF09\
@@ -613,7 +634,7 @@ blocks:
       \                      self.write_real_data_into_file([0]*self.payload_data_len)\n\
       \                                \n                    self.total_file_frame_num\
       \ += 1\n                    self.write_real_data_into_file(self.repet_dcode(self.datas_0[index_0+self.preamble_bits_num+self.header_bits_num:index_0+self.datas_one_frame_num],self.repet))\n\
-      \                    #print(\"total_file_frame_num:%d, file_data_len:%d, file_data_crc:0x%x\"\
+      \                    # print(\"total_file_frame_num:%d, file_data_len:%d, file_data_crc:0x%x\"\
       \ %(self.total_file_frame_num,self.file_info_len,self.file_info_crc))\n    \
       \                    \n                self.file_start = index0_sn\n\n     \
       \           \n                # cut the one frame\n                self.datas_0\
@@ -639,7 +660,7 @@ blocks:
     risks: '0.1'
   states:
     _io_cache: ('cal_error', 'blk_cal_error', [('preamble', '[]'), ('payload_data_len',
-      '0'), ('risks', '0.3'), ('repet', '3'), ('file_name', "'output.wav'"), ('debug',
+      '36'), ('risks', '0.3'), ('repet', '3'), ('file_name', "'output.wav'"), ('debug',
       'False')], [('0', 'byte', 1)], [('0', 'float', 1)], 'Embedded Python Block example
       - a simple multiply const', ['debug', 'payload_data_len', 'preamble', 'repet',
       'risks'])
@@ -652,27 +673,28 @@ blocks:
 - name: epy_block_1
   id: epy_block
   parameters:
-    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
-      \ GRC will instantiate the first class it finds\nto get ports and parameters\
-      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
-      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\nimport time\nimport zlib\nimport pmt\n\n\nclass epb_blk(gr.sync_block):\
-      \  # other base classes are basic_block, decim_block, interp_block\n    \"\"\
-      \"Embedded Python Block example - a simple multiply const\"\"\"\n\n    def __init__(self,\
-      \ file_path=\"a.mkv\", payload_data_len=20, preamble=[], n_zero_frame=3, repet=3):\
-      \  # only default arguments here\n        \"\"\"arguments to this function show\
-      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
-      \       self,\n                name='MyFileSink',   # will show up in GRC\n\
-      \                in_sig=None,\n                out_sig=[np.uint8]\n        \
-      \        )\n                \n        # if an attribute with the same name as\
-      \ a parameter is found,\n        # a callback is registered (properties work,\
-      \ too).\n        self.in_port_name = 'test/transfer'\n        self.message_port_register_in(pmt.intern(self.in_port_name))\n\
+    _source_code: "#!/usr/bin/env python\n# coding=utf-8\n\"\"\"\nEmbedded Python\
+      \ Blocks:\n\nEach time this file is saved, GRC will instantiate the first class\
+      \ it finds\nto get ports and parameters of your block. The arguments to __init__\
+      \  will\nbe the parameters. All of them are required to have default values!\n\
+      \"\"\"\n\nimport numpy as np\nfrom gnuradio import gr\nimport time\nimport zlib\n\
+      import pmt\n\n\nclass epb_blk(gr.sync_block):  # other base classes are basic_block,\
+      \ decim_block, interp_block\n    \"\"\"Embedded Python Block example - a simple\
+      \ multiply const\"\"\"\n\n    def __init__(self, file_path=\"a.mkv\", payload_data_len=36,\
+      \ preamble=[0xac, 0xdd, 0xa4, 0xe2, 0xf2, 0x8c, 0x20, 0xfc], n_zero_frame=3,\
+      \ repet=3):  # only default arguments here\n        \"\"\"arguments to this\
+      \ function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \                self,\n                name='MyFileSink',   # will show up\
+      \ in GRC\n                in_sig=None,\n                out_sig=[np.uint8]\n\
+      \                )\n                \n        # if an attribute with the same\
+      \ name as a parameter is found,\n        # a callback is registered (properties\
+      \ work, too).\n        self.in_port_name = 'test/transfer'\n        self.message_port_register_in(pmt.intern(self.in_port_name))\n\
       \        self.set_msg_handler(pmt.intern(self.in_port_name), self.handle_msg)\n\
       \        \n        self.file_data = []\n        self.test_data = []\n      \
       \  self.current_position = 0\n        self.test_current_position = 0\n     \
       \   self.test = 1\n        \n        # TEST MODE DATAS: \u6784\u5EFA\u8C03\u8BD5\
       \u6570\u636E\u5E27\n        self.test_data.extend(preamble)\n        self.test_data.extend([0,\
-      \ 0]*repet)\n        self.test_data.extend([x for x in range(payload_data_len)]*repet)\n\
+      \ 0, 0, 0]*repet)\n        self.test_data.extend([(x&0xFF) for x in range(payload_data_len)]*repet)\n\
       \        self.test_data_len = len(self.test_data)\n        \n        # SEND\
       \ MODE DATAS: \u6784\u5EFA\u53D1\u9001\u6587\u4EF6\u6570\u636E\n        with\
       \ open(file_path, 'rb') as file:\n            file_data = file.read()\n    \
@@ -694,42 +716,46 @@ blocks:
       \ \u586B\u5145\u5934\u90E8\u4FE1\u606F\uFF08\u6587\u4EF6\u5934\u90E8\uFF09\n\
       \            # n_zero_frame\n            # \u524D\u7F6E\u7A7A\u5E27\uFF0C\u7528\
       \u4E8E\u8BA9\u63A5\u6536\u9501\u5B9A\u6587\u4EF6\u8D77\u59CB\u4F4D\u7F6E\n \
-      \           # preamble + [2bytes frame_num]*repet + [4bytes total_data_len +\
+      \           # preamble + [4bytes frame_num]*repet + [4bytes total_data_len +\
       \ 4bytes total_data_crc32 + [0x55]*(payload_data_len*repet-8)]\n           \
       \ for idx in range(n_zero_frame):\n                self.file_data.extend(preamble)\n\
-      \                self.file_data.extend([(frame_num>>8) & 0xFF, (frame_num>>0)\
-      \ & 0xFF]*repet)\n                self.file_data.extend([(tmp_data_len>>24)\
-      \ & 0xFF, (tmp_data_len>>16) & 0xFF, (tmp_data_len>>8) & 0xFF, (tmp_data_len>>0)\
-      \ & 0xFF, (tmp_data_crc32>>24) & 0xFF, (tmp_data_crc32>>16) & 0xFF, (tmp_data_crc32>>8)\
-      \ & 0xFF, (tmp_data_crc32>>0) & 0xFF])\n                self.file_data.extend([0x55]*(payload_data_len*repet-8))\n\
-      \n            frame_num = 2\n            # 2) n \u4E2A frame\n            for\
-      \ idx in range(0,tmp_data_len,payload_data_len):\n                #print(\"\
-      xx\",idx)\n                left = tmp_data_len - idx\n                if left\
-      \ >= payload_data_len:# \u5269\u4F59\u8DB3\u591F\u4E00\u5E27\n             \
-      \       self.file_data.extend(preamble)\n                    self.file_data.extend([(frame_num>>8)\
-      \ & 0xFF, (frame_num>>0) & 0xFF]*repet)\n                    #self.file_data.extend(np.frombuffer(tmp_data[idx:idx+payload_data_len]*repet,\
-      \ dtype=np.uint8))\n                    self.file_data.extend(tmp_data[idx:idx+payload_data_len]*repet)\n\
-      \                    if frame_num == 2:\n                        #for i in range(10-frame_num):\n\
-      \                        self.file_data.extend(preamble)\n                 \
-      \       self.file_data.extend([(frame_num>>8) & 0xFF, (frame_num>>0) & 0xFF]*repet)\n\
-      \                        #self.file_data.extend(np.frombuffer(tmp_data[idx:idx+payload_data_len]*repet,\
-      \ dtype=np.uint8))\n                        self.file_data.extend(tmp_data[idx:idx+payload_data_len]*repet)\n\
-      \                else:# \u8FD8\u5269\uFF0C\u8865 0 \u5F62\u6210 1 frame\n  \
-      \                  self.file_data.extend(preamble)\n                    self.file_data.extend([(frame_num>>8)\
-      \ & 0xFF, (frame_num>>0) & 0xFF]*repet)\n                    #self.file_data.extend(np.frombuffer(tmp_data[idx:idx+left]*repet,\
-      \ dtype=np.uint8))\n                    self.file_data.extend(tmp_data[idx:idx+left]*repet)\n\
-      \                    self.file_data.extend([0]*((payload_data_len-left)*repet))\n\
-      \                                \n                frame_num += 1\n        \
-      \        \n            self.file_data_len = len(self.file_data)\n          \
-      \  print(\"total file data len:%d->%d, pre_file_frame_num:%d, frame num:%d\"\
-      \ %(tmp_data_len, self.file_data_len, n_zero_frame, frame_num))\n\n\t# \u7528\
-      \u4E8E\u63A5\u6536 Toggle Button \u6D88\u606F\uFF0C\u7528\u6765\u5207\u6362\u72B6\
-      \u6001\n    def handle_msg(self, msg):\n        x = pmt.to_python(msg)[1]\n\
-      \        if x == 1:\n            self.test = 0\n        else:\n            self.test\
-      \ = 1\n        #print(pmt.to_python(msg)[1])\n         \n    def work(self,\
-      \ input_items, output_items):\n        # Check if there is enough data left\
-      \ in the file\n        o_len = len(output_items[0])\n        #print(\">>>>>\"\
-      ,o_len)\n        if self.test == 1:\n            for idx in range(0,o_len,self.test_data_len):\n\
+      \                self.file_data.extend([(frame_num>>24) & 0xFF, (frame_num>>16)\
+      \ & 0xFF, (frame_num>>8) & 0xFF, (frame_num>>0) & 0xFF]*repet)\n           \
+      \     self.file_data.extend([(tmp_data_len>>24) & 0xFF, (tmp_data_len>>16) &\
+      \ 0xFF, (tmp_data_len>>8) & 0xFF, (tmp_data_len>>0) & 0xFF, (tmp_data_crc32>>24)\
+      \ & 0xFF, (tmp_data_crc32>>16) & 0xFF, (tmp_data_crc32>>8) & 0xFF, (tmp_data_crc32>>0)\
+      \ & 0xFF])\n                self.file_data.extend([0x55]*(payload_data_len*repet-8))\n\
+      \n            frame_num = 2\n            # 2) n \u4E2A frame\n            left\
+      \ = tmp_data_len\n            read = 0\n            while left > 0:\n      \
+      \          if left >= payload_data_len:\n                    self.file_data.extend(preamble)\n\
+      \                    self.file_data.extend([(frame_num>>24) & 0xFF, (frame_num>>16)\
+      \ & 0xFF, (frame_num>>8) & 0xFF, (frame_num>>0) & 0xFF]*repet)\n           \
+      \         self.file_data.extend(tmp_data[read:read+payload_data_len]*repet)\n\
+      \                    if frame_num < 10:\n                        self.file_data.extend(preamble)\n\
+      \                        self.file_data.extend([(frame_num>>24) & 0xFF, (frame_num>>16)\
+      \ & 0xFF, (frame_num>>8) & 0xFF, (frame_num>>0) & 0xFF]*repet)\n           \
+      \             self.file_data.extend(tmp_data[read:read+payload_data_len]*repet)\n\
+      \                    left -= payload_data_len\n                else:# \u8FD8\
+      \u5269\uFF0C\u8865 0 \u5F62\u6210 1 frame\n                    self.file_data.extend(preamble)\n\
+      \                    self.file_data.extend([(frame_num>>24) & 0xFF, (frame_num>>16)\
+      \ & 0xFF, (frame_num>>8) & 0xFF, (frame_num>>0) & 0xFF]*repet)\n           \
+      \         # self.file_data.extend(tmp_data[read:read+left]*repet)\n        \
+      \            # self.file_data.extend([0]*((payload_data_len-left)*repet))\n\
+      \                    segment = tmp_data[read:read+left] + [0] * (payload_data_len\
+      \ - left)\n                    self.file_data.extend(segment * repet)\n    \
+      \                left = 0\n               \n                frame_num += 1\n\
+      \                read += payload_data_len\n                # print(f\"left:{left},\
+      \ frame_num:{frame_num}, read:{read}, file_data_len:{len(self.file_data)}\"\
+      )\n            self.file_data_len = len(self.file_data)\n            print(\"\
+      total file data len:%d->%d, pre_file_frame_num:%d, frame num:%d\" %(tmp_data_len,\
+      \ self.file_data_len, n_zero_frame, frame_num))\n\n\t# \u7528\u4E8E\u63A5\u6536\
+      \ Toggle Button \u6D88\u606F\uFF0C\u7528\u6765\u5207\u6362\u72B6\u6001\n   \
+      \ def handle_msg(self, msg):\n        x = pmt.to_python(msg)[1]\n        if\
+      \ x == 1:\n            self.test = 0\n        else:\n            self.test =\
+      \ 1\n        #print(pmt.to_python(msg)[1])\n         \n    def work(self, input_items,\
+      \ output_items):\n        # Check if there is enough data left in the file\n\
+      \        o_len = len(output_items[0])\n        #print(\">>>>>\",o_len)\n   \
+      \     if self.test == 1:\n            for idx in range(0,o_len,self.test_data_len):\n\
       \                left = o_len - idx\n                if left >= self.test_data_len:\n\
       \                    output_items[0][idx:idx+self.test_data_len] = (self.test_data*2)[self.test_current_position:self.test_current_position+self.test_data_len]\n\
       \                    self.test_current_position += self.test_data_len\n    \
@@ -748,7 +774,7 @@ blocks:
       \ \n"
     affinity: ''
     alias: ''
-    comment: preamble + [2bytes frame_num]*repet + [4bytes total_data_len + 4bytes
+    comment: preamble + [4bytes frame_num]*repet + [4bytes total_data_len + 4bytes
       total_data_crc32 + [0x55]*(data_length*repet-8)]
     file_path: file_name
     maxoutbuf: '0'
@@ -759,9 +785,9 @@ blocks:
     repet: repet
   states:
     _io_cache: ('MyFileSink', 'epb_blk', [('file_path', "'a.mkv'"), ('payload_data_len',
-      '20'), ('preamble', '[]'), ('n_zero_frame', '3'), ('repet', '3')], [('test/transfer',
-      'message', 1)], [('0', 'byte', 1)], 'Embedded Python Block example - a simple
-      multiply const', [])
+      '36'), ('preamble', '[172, 221, 164, 226, 242, 140, 32, 252]'), ('n_zero_frame',
+      '3'), ('repet', '3')], [('test/transfer', 'message', 1)], [('0', 'byte', 1)],
+      'Embedded Python Block example - a simple multiply const', [])
     bus_sink: false
     bus_source: false
     bus_structure: null
@@ -2385,9 +2411,12 @@ blocks:
 
 connections:
 - [blocks_char_to_float_0_0_1_0, '0', qtgui_time_sink_x_1_1_0, '0']
+- [blocks_throttle2_1, '0', channels_channel_model_0, '0']
 - [blocks_throttle2_1, '0', uhd_usrp_sink_0, '0']
 - [blocks_unpack_k_bits_bb_0, '0', epy_block_0, '0']
 - [button_msg, state, epy_block_1, test/transfer]
+- [channels_channel_model_0, '0', digital_pfb_clock_sync_xxx_0, '0']
+- [channels_channel_model_0, '0', virtual_sink_1, '0']
 - [digital_constellation_decoder_cb_0, '0', digital_diff_decoder_bb_0, '0']
 - [digital_constellation_modulator_0, '0', blocks_throttle2_1, '0']
 - [digital_constellation_modulator_0, '0', virtual_sink_1_0, '0']
