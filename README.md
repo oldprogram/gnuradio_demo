@@ -106,7 +106,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [第八集：ADS-B 信号接收与航班追踪][B21008]    
 - [第九集：QPSK+B210 搞定大文件视频传输][B21009]    
 - [第十集：超强雷达工具包 gr-radar 详解][B21010]    
-
+- [第十一集：直击 Wi-Fi 底层 gr-ieee802.11 模块源码深度解读][B21011]    
 
 </br>
 
@@ -199,6 +199,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [B21008]:https://www.bilibili.com/video/BV1CdpjzbEkH/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [B21009]:https://www.bilibili.com/video/BV1cjnpzYEFJ/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 [B21010]:https://www.bilibili.com/video/BV1cbnJzZECE/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
+[B21011]:https://www.bilibili.com/video/BV16kszzWEFh/?vd_source=84f94348691c2906fc1038d54989b7e0          
 
 
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
@@ -244,6 +245,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [B21008_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/08-ADS-B信号接收与航班追踪/readme.md    
 [B21009_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/09-QPSK搞定大文件视频传输/readme.md    
 [B21010_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/10-超强雷达工具包gr-radar详解/readme.md    
+[B21011_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/11-直击Wi-Fi底层gr-ieee802.11模块源码深度解读/readme.md    
 
 [SCROLLING_MSG1]:<顶满，双 hackrf 蓝牙广播收发实现接入涂鸦智能[跪了]><https://www.bilibili.com/opus/968720063941050403?spm_id_from=333.999.0.0>
 [SCROLLING_MSG2]:<火火火，用 HackRF 实施 GPS 欺诈><https://www.bilibili.com/video/BV1sZWjerEP3/?spm_id_from=333.999.list.card_archive.click>
