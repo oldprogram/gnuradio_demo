@@ -166,7 +166,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC32]:https://www.bilibili.com/video/BV158fYYBEj3?vd_source=84f94348691c2906fc1038d54989b7e0           
 [JC33]:https://www.bilibili.com/video/BV1BgfLYtEkq/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [JC34]:https://www.bilibili.com/video/BV1aWPUexE9h/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
-[JC34]:https://www.bilibili.com/video/BV1aWPUexE9h/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
+[JC35]:https://www.bilibili.com/video/BV1aWPUexE9h/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
 
 
 
