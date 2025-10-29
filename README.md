@@ -47,6 +47,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[33]. GNU Radio 系列教程（三三）—— 基础调制之 PM][JC33]    
 - [[34]. GNU Radio 系列教程（三四）—— 深入理解 PSK 与星座图（BPSK、QPSK、8PSK、16QAM）][JC34]    
 - [[35]. GNU Radio 系列教程（三五）—— 使用 gr-modtool 创建 Python OOT][JC35]    
+- [[36]. GNU Radio 系列教程（三六）—— 使用 gr-modtool 创建 C++ OOT][JC36]    
 
 
 </br>
@@ -166,7 +167,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC32]:https://www.bilibili.com/video/BV158fYYBEj3?vd_source=84f94348691c2906fc1038d54989b7e0           
 [JC33]:https://www.bilibili.com/video/BV1BgfLYtEkq/?vd_source=84f94348691c2906fc1038d54989b7e0    
 [JC34]:https://www.bilibili.com/video/BV1aWPUexE9h/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
-[JC35]:https://www.bilibili.com/video/BV1aWPUexE9h/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
+[JC35]:https://www.bilibili.com/video/BV1qbyCBtE3i?vd_source=84f94348691c2906fc1038d54989b7e0      
+[JC36]:https://www.bilibili.com/video/BV1PHysBHEwt/?vd_source=84f94348691c2906fc1038d54989b7e0       
 
 
 
@@ -232,6 +234,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC32_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/21-GNU Radio 基础调制/02-AM_SSB/README.md    
 [JC34_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/21-GNU Radio 基础调制/04-PSK/README.md    
 [JC35_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/22-GNU Radio OOT/01-使用 gr-modtool 创建 Python OOT/README.md         
+[JC36_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/22-GNU Radio OOT/02-使用 gr-modtool 创建 C++ OOT/README.md            
 
 [JCX4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/04- 利用 GNU Radio 和 HackRF 手把手深入了解蓝牙协议栈（从电磁波 to 01数据流 to 蓝牙数据包） /README.md
 [JCX5_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/05- 利用 GNU Radio 和 LimeSDR 和 WireShark 做蓝牙抓包器（上上个视频使用 HackRF）/README.md
