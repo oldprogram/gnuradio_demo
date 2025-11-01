@@ -48,7 +48,6 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[34]. GNU Radio 系列教程（三四）—— 深入理解 PSK 与星座图（BPSK、QPSK、8PSK、16QAM）][JC34]    
 - [[35]. GNU Radio 系列教程（三五）—— 使用 gr-modtool 创建 Python OOT][JC35]    
 - [[36]. GNU Radio 系列教程（三六）—— 使用 gr-modtool 创建 C++ OOT][JC36]    
-- [[36]. GNU Radio 系列教程（三六）—— 使用 gr-modtool 创建 C++ OOT][JC36]    
 - [[37]. GNU Radio 系列教程（三七）—— GR C++ OOT 高级用法 —— 回调与动态调节][JC37]    
 
 
