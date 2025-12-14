@@ -111,6 +111,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [第九集：QPSK+B210 搞定大文件视频传输][B21009]    
 - [第十集：超强雷达工具包 gr-radar 详解][B21010]    
 - [第十一集：直击 Wi-Fi 底层 gr-ieee802.11 模块源码深度解读][B21011]    
+- [第十二集：USRP 双通道与 MIMO 技术 —— 手搓1发2收 AOA 定位系统][B21012_01]          
 
 </br>
 
@@ -258,6 +259,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [B21009_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/09-QPSK搞定大文件视频传输/readme.md    
 [B21010_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/10-超强雷达工具包gr-radar详解/readme.md    
 [B21011_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/11-直击Wi-Fi底层gr-ieee802.11模块源码深度解读/readme.md    
+[B21012_01_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/12-USRP双通道与MIMO技术/01-手搓1发2收AOA定位系统/readme.md       
 
 [SCROLLING_MSG1]:<顶满，双 hackrf 蓝牙广播收发实现接入涂鸦智能[跪了]><https://www.bilibili.com/opus/968720063941050403?spm_id_from=333.999.0.0>
 [SCROLLING_MSG2]:<火火火，用 HackRF 实施 GPS 欺诈><https://www.bilibili.com/video/BV1sZWjerEP3/?spm_id_from=333.999.list.card_archive.click>
