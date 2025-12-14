@@ -111,7 +111,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [第九集：QPSK+B210 搞定大文件视频传输][B21009]    
 - [第十集：超强雷达工具包 gr-radar 详解][B21010]    
 - [第十一集：直击 Wi-Fi 底层 gr-ieee802.11 模块源码深度解读][B21011]    
-- [第十二集：USRP 双通道与 MIMO 技术 —— 手搓1发2收 AOA 定位系统][B21012_01]          
+- [第十二集：USRP 双通道与 MIMO 技术][B21012]          
+    - [第一节:手搓1发2收 AOA 定位系统][B21012_01]      
 
 </br>
 
