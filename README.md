@@ -112,7 +112,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [第十集：超强雷达工具包 gr-radar 详解][B21010]    
 - [第十一集：直击 Wi-Fi 底层 gr-ieee802.11 模块源码深度解读][B21011]    
 - [第十二集：USRP 双通道与 MIMO 技术][B21012]          
-    - [第一节:手搓1发2收 AOA 定位系统][B21012_01]      
+    - [第一节：手搓 1 发 2 收 AOA 定位系统][B21012_01]      
 - [第十三集：自定义 FPGA 固件（仅适用于高级用户）][B21013]          
 - [第十四集：故障排除与性能优化][B21014]                
 
