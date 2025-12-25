@@ -112,7 +112,8 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [第十集：超强雷达工具包 gr-radar 详解][B21010]    
 - [第十一集：直击 Wi-Fi 底层 gr-ieee802.11 模块源码深度解读][B21011]    
 - [第十二集：USRP 双通道与 MIMO 技术][B21012]          
-    - [第一节：手搓 1 发 2 收 AOA 定位系统][B21012_01]      
+    - [第一节：手搓 1 发 2 收 AOA 定位系统][B21012_01]        
+    - [第二节：从相消干涉到 AoD 定位][B21012_02]      
 - [第十三集：自定义 FPGA 固件（仅适用于高级用户）][B21013]          
 - [第十四集：故障排除与性能优化][B21014]                
 
@@ -214,6 +215,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [B21011]:https://www.bilibili.com/video/BV16kszzWEFh/?vd_source=84f94348691c2906fc1038d54989b7e0          
 [B21012]:https://www.bilibili.com/video/BV1x4qQBjESs/?vd_source=84f94348691c2906fc1038d54989b7e0         
 [B21012_01]:https://www.bilibili.com/video/BV1x4qQBjESs/?vd_source=84f94348691c2906fc1038d54989b7e0         
+[B21012_02]:https://www.bilibili.com/video/BV1x4qQBjESs/?vd_source=84f94348691c2906fc1038d54989b7e0         
 
 
 [QJYQ1]:https://www.bilibili.com/video/BV1KtfpYFEZZ/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4    
@@ -265,6 +267,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [B21010_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/10-超强雷达工具包gr-radar详解/readme.md    
 [B21011_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/11-直击Wi-Fi底层gr-ieee802.11模块源码深度解读/readme.md    
 [B21012_01_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/12-USRP双通道与MIMO技术/01-手搓1发2收AOA定位系统/readme.md       
+[B21012_02_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/B210专项/12-USRP双通道与MIMO技术/02-从相消干涉到AoD定位/readme.md     
 
 [SCROLLING_MSG1]:<顶满，双 hackrf 蓝牙广播收发实现接入涂鸦智能[跪了]><https://www.bilibili.com/opus/968720063941050403?spm_id_from=333.999.0.0>
 [SCROLLING_MSG2]:<火火火，用 HackRF 实施 GPS 欺诈><https://www.bilibili.com/video/BV1sZWjerEP3/?spm_id_from=333.999.list.card_archive.click>
