@@ -81,6 +81,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[3]. GNU Radio 附加教程（三）－－ 使用 ask bpsk qpsk qam16 模拟收发计算误码率][JCK3]    
 - [[4]. GNU Radio 附加教程（四）－－ 为什么高阶 GNU Radio 用户需要使用 docker？][JCK4]    
 - [[5]. GNU Radio 附加教程（五）－－ SDR 采样时钟不匹配问题深入探讨][JCK5]    
+- [[6]. GNU Radio 附加教程（六）－－ 使用 ask bpsk qpsk qam16 模拟收发计算信噪比][JCK6]    
 
 </br>
 
@@ -196,6 +197,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCK3]:https://www.bilibili.com/video/BV1My9wYFEJP/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4
 [JCK4]:https://www.bilibili.com/video/BV1c89JYYEcP/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4     
 [JCK5]:https://www.bilibili.com/video/BV1XBm8BREbd/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4 
+[JCK6]:https://www.bilibili.com/video/BV1XBm8BREbd/?vd_source=e07622425aaa33ca0b1e9dafa0807cf4 
 
 [BLE01]:https://www.bilibili.com/video/BV1bARMYLEGX/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4
 [BLE02]:https://www.bilibili.com/video/BV1mNRhYGE5n/?share_source=copy_web&vd_source=e07622425aaa33ca0b1e9dafa0807cf4
@@ -257,6 +259,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JCK2_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/02-眼图/README.md
 [JCK4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/04-为什么高阶 GNU Radio 用户需要使用 Docker/readme.md
 [JCK5_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/05-SDR 采样时钟不匹配问题深入探讨/readme.md
+[JCK6_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/附加教程/06-使用ask_bpsk_qpsk_qam16模拟收发计算信噪比/readme.md       
 
 [BLE01_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/蓝牙专项/readme.md
 
