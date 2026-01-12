@@ -1,0 +1,24 @@
+BPSK:Voltage=0 时信号的平均功率 -0.02db, 噪声平均功率：-81db
+Voltage=0.63 SNR=12.2 Eb/N0=10.0 BER=0
+Voltage=0.8 SNR=10.18 Eb/N0=7.9 BER=0.015%
+Voltage=0.9 SNR=9.13 Eb/N0=6.93 BER=0.08%
+Voltage=1 SNR=8.3 Eb/N0=6.0 BER=0.2%
+
+QPSK:Voltage=0 时信号的平均功率 -0.025db, 噪声平均功率：-81db
+Voltage=0.63 SNR=12.2 Eb/N0=7.0 BER=0.06%
+Voltage=0.8 SNR=10 Eb/N0=4.8 BER=0.65%
+Voltage=0.9 SNR=9.14 Eb/N0=3.93 BER=1.3%
+Voltage=1 SNR=8.3 Eb/N0=3.0 BER=2.3%
+
+QAM16:Voltage=0 时信号的平均功率 0.716db, 噪声平均功率：-81db
+Voltage=0.2 SNR=23.26 Eb/N0=15 BER=0%
+Voltage=0.4 SNR=17.3 Eb/N0=9.05 BER=0.66%
+Voltage=0.5 SNR=15.3 Eb/N0=7.05 BER=2.2%
+Voltage=0.63 SNR=13.3 Eb/N0=5.02 BER=5%
+Voltage=0.8 SNR=11.2 Eb/N0=3.01 BER=8.9%
+
+ASK(0,1):Voltage=0 时信号的平均功率 2.24db, 噪声平均功率：-81db
+Voltage=0.63 SNR=14.5 Eb/N0=12.28 BER=0
+Voltage=0.8 SNR=12.4 Eb/N0=10.2 BER=0.015%
+Voltage=0.9 SNR=11.36 Eb/N0=9.10 BER=0.09%
+Voltage=1 SNR=10.40 Eb/N0=8.2 BER=0.2%
