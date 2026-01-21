@@ -136,7 +136,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 </br>
 
 ---
-: <font color=#FF000> **如果觉得不错，帮忙点个支持哈～**  </font>
+: <font color=#FF000> **如果觉得不错，帮忙点个支持哈（如果想要加微信千万别忘了备注自己的微信号）～**  </font>
 
 ![][px]
 
