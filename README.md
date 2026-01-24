@@ -51,6 +51,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 - [[37]. GNU Radio 系列教程（三七）—— GR C++ OOT 高级用法 —— 回调与动态调节][JC37]    
 - [[38]. GNU Radio 系列教程（三八）—— GNU Radio FSK 收发][JC38]    
     - [第一节：正交解调模块][JC38_01]        
+    - [第二节：FSK 模拟收发][JC38_02]     
 
 
 </br>
@@ -180,8 +181,9 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC35]:https://www.bilibili.com/video/BV1qbyCBtE3i?vd_source=84f94348691c2906fc1038d54989b7e0      
 [JC36]:https://www.bilibili.com/video/BV1PHysBHEwt/?vd_source=84f94348691c2906fc1038d54989b7e0       
 [JC37]:https://www.bilibili.com/video/BV1QZ1jB2EaW/?vd_source=84f94348691c2906fc1038d54989b7e0       
-[JC38]:https://www.bilibili.com/video/BV1QZ1jB2EaW/?vd_source=84f94348691c2906fc1038d54989b7e0       
-[JC38_01]:https://www.bilibili.com/video/BV1QZ1jB2EaW/?vd_source=84f94348691c2906fc1038d54989b7e0       
+[JC38]:https://www.bilibili.com/video/BV1SnzuBMEPp/?vd_source=84f94348691c2906fc1038d54989b7e0       
+[JC38_01]:https://www.bilibili.com/video/BV1SnzuBMEPp/?vd_source=84f94348691c2906fc1038d54989b7e0       
+[JC38_02]:https://www.bilibili.com/video/BV1SnzuBMEPp/?vd_source=84f94348691c2906fc1038d54989b7e0       
 
 
 
@@ -255,6 +257,7 @@ git clone git@github.com:oldprogram/gnuradio_demo.git --recurse-submodules
 [JC36_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/22-GNU Radio OOT/02-使用 gr-modtool 创建 C++ OOT/README.md            
 [JC37_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/22-GNU Radio OOT/03-GR C++ OOT 高级用法 —— 回调与动态调节/README.md            
 [JC38_01_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/23-GNU Radio FSK 收发/01-正交解调模块/README.md                 
+[JC38_02_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/基础教程/23-GNU Radio FSK 收发/02-FSK模拟收发/README.md                 
 
 [JCX4_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/04- 利用 GNU Radio 和 HackRF 手把手深入了解蓝牙协议栈（从电磁波 to 01数据流 to 蓝牙数据包） /README.md
 [JCX5_DOC]:https://github.com/oldprogram/gnuradio_demo/blob/main/综合教程/05- 利用 GNU Radio 和 LimeSDR 和 WireShark 做蓝牙抓包器（上上个视频使用 HackRF）/README.md
